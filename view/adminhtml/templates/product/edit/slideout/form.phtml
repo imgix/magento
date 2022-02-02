@@ -1,0 +1,291 @@
+<?php $imgixSources = $block->getImgixImageSources(); ?>
+
+<div id="<?= $block->escapeHtmlAttr($block->getNameInLayout()) ?>"
+    data-modal-info='<?= /* @noEscape */ $block->getWidgetOptions() ?>'
+    class="new-imgix-image"
+>   
+    <div class="imgix-nav">
+        <div class="source-pos">
+            <div id="source-selector-container" class="source-selector-container">
+                <div class="source-selector">
+                    <div class="source-asset-icon">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                            <path
+                                d="M22,
+                                    26v-3h3h1v-3h3h1V6H10v3H6v3H2v14H22z M21,24.7L14.5,16L10,22l-2.5-3L3,
+                                    24.7V13h18V24.7z M11.9,12c-0.2-0.6-0.8-1-1.4-1 s-1.2,0.4-1.4,
+                                    1H7v-2h18v11.7l-3-4V12H11.9z M15.9,9c-0.2-0.6-0.8-1-1.4-1s-1.2,0.4-1.4,
+                                    1H11V7h18v11.7l-3-4V9H15.9z" />
+                            <circle cx="6.5" cy="15.5" r="1.5" />
+                        </svg>
+                    </div>
+                    <h2 id="current-selected-source"></h2>
+                    <div id="assets-arrow-icon" class="assets-arrow-icon">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="7" viewBox="0 0 10 7">
+                            <polygon points="5,6.4 0.3,1.7 1.7,0.3 5,3.6 8.3,0.3 9.7,1.7 " />
+                        </svg>
+                    </div>
+                </div>
+                <div id="source-selector-dropdown" class="source-selector-dropdown-hidden source-selector-dropdown">
+                    <ul class="source-selector-menu">
+                        <?php foreach ($imgixSources as $key => $source) {?>
+                            <li class="source-selector-menu-item" data-source-id="<?=/*@noEscape*/ $source['id']?>">
+                                <div class="deployment-indicator"></div>
+                                <div class="text-container">
+                                    <div class="source-name"><?=/*@noEscape*/ $source['name']?></div>
+                                    <div class="source-type-container">
+                                        <div class="source-type"><?=/*@noEscape*/ $source['deployment_type']?></div>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="search-bar-container">
+            <span class="search-icon">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="16" height="16" viewBox="0 0 16 16">
+                    <path
+                        d="M16,14l-4.88-4.88C11.67,8.21,12,7.14,
+                        12,6c0-3.31-2.69-6-6-6S0,2.69,0,6s2.69,6,6,6c1.14,0,2.21-0.33,
+                        3.12-0.88L14,16 L16,14z M6,10c-2.21,0-4-1.79-4-4c0-2.21,1.79-4,
+                        4-4s4,1.79,4,4C10,8.21,8.21,10,6,10z" />
+                </svg>
+            </span>
+            <form action="" method="get" class="search-bar-form" id="new_imgix_form" enctype="multipart/form-data">
+                <input type="hidden" name="form_key" value="<?= /*@noEscape */ $block->getFormKey() ?>" />
+                <div class="search-input-wrapper">
+                    <div class="search-bar-input">
+                        <input id="imgix_search_keyword" 
+                            name="imgix_search_keyword" 
+                            value="" title="Search Keyword" 
+                            class="imgix-search-keyword input-text admin__control-text" 
+                            type="text" 
+                            autocomplete="off"
+                            placeholder="Search by filename, path, tag, or category"
+                            >
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="messages imgix-error-message"></div>
+    <div class="assets imgix-gallery" id="contents"></div> 
+    <div class="imgix-load-more"><button class="load-more-imgix-image" data-next-page="0" >LOAD MORE</button></div>
+    <div class="page-action-btn"></div>
+</div>
+<?= /* @noEscape */ $secureRenderer->renderStyleAsTag(
+    'display:none',
+    'div#' . $block->escapeJs($block->getNameInLayout())
+) ?>
+
+<script >
+    require([
+    "jquery",
+    "mage/mage"
+    ], function ($) {
+        
+        // Select imgix image from popup 
+        $(document).on("click", ".assets .imgix-asset", function() {
+            $(".page-actions-buttons button.image-upload-button").attr("disabled",false);
+            $(this).toggleClass("selected");
+        });
+        // Hide LOAD MORE button
+        $('.load-more-imgix-image').hide();
+
+        /**
+         * sources dropdown toggle
+         */
+        $(document).on("click","#source-selector-container",function(event){
+            event.preventDefault();
+            if ($(this).children('.source-selector').hasClass('current-selection')){
+                $(this).children('#source-selector-dropdown').addClass('source-selector-dropdown-hidden');
+                $(this).children('#source-selector-dropdown').removeClass('source-selector-dropdown-visible');
+                $(this).children('.source-selector').removeClass('current-selection');
+            } else {
+                $(this).children('#source-selector-dropdown').removeClass('source-selector-dropdown-hidden');
+                $(this).children('#source-selector-dropdown').addClass('source-selector-dropdown-visible');
+                
+                $(this).children('.source-selector').addClass('current-selection');
+            }
+        });
+        // on source change get imgix images
+        $(document).on("click",".source-selector-menu-item",function(event){
+            event.preventDefault();
+            var source_id = $(this).attr('data-source-id');
+            $("#current-selected-source").text($(this).find(".source-name").text());
+            $("#current-selected-source").attr('current_selected_source',source_id);
+
+            $('.load-more-imgix-image').attr('data-next-page','0');
+            $('.load-more-imgix-image').attr('data-current','0');
+            
+            var source = $("#current-selected-source").attr('current_selected_source');
+            var keyword = null;
+            var cursor = $(".load-more-imgix-image").attr('data-next-page');
+
+
+            $('#imgix_search_keyword').val('');
+            $('#imgix_search_keyword').attr('value','');
+            $('.imgix-error-message').html('');
+            
+            $.ajax({     
+                showLoader: true, 
+                url: "<?= /* @noEscape */ $block->getImgixImageUrl(); ?>", 
+                data: {sourceId: source,keyword: keyword, cursor:cursor},
+                type: "POST", 
+                dataType: 'json'
+            }).done(function (response) { 
+                if(response.isNoImages == true){
+                    $('.assets').addClass("no-imgix-image");
+                }
+                if(response.isNoImages == false){
+                    if($('.assets').hasClass("no-imgix-image")){
+                        $('.assets').removeClass("no-imgix-image");
+                    }
+                }
+                $('.assets').html(response.html).trigger('contentUpdated');
+                if(response.hasMore == true){
+                    $('.load-more-imgix-image').show();
+                    $('.load-more-imgix-image').attr('data-next-page',response.next);
+                }
+                if(response.hasMore == false){
+                    $('.load-more-imgix-image').hide();
+                    $('.load-more-imgix-image').attr('data-next-page','');
+                }
+                
+                if(response.isError == true){
+                    $('.imgix-error-message').html(response.errorMessage);
+                }
+            });
+        });
+
+        // On click search icon get imgix images 
+        $(document).on("click",".search-icon", function () {
+            $('.imgix-error-message').html('');
+            $('.load-more-imgix-image').attr('data-next-page','0');
+            $('.load-more-imgix-image').attr('data-current','0');
+            
+            var source = $("#current-selected-source").attr('current_selected_source');
+            var keyword = $('#imgix_search_keyword').val();
+            var cursor = $(".load-more-imgix-image").attr('data-next-page');
+
+            $.ajax({     
+                showLoader: true, 
+                url: "<?= /* @noEscape */ $block->getImgixImageUrl(); ?>", 
+                data: {sourceId: source,keyword: keyword, cursor: cursor},
+                type: "POST", 
+                dataType: 'json'
+            }).done(function (response) { 
+                if(response.isNoImages == true){
+                    $('.assets').addClass("no-imgix-image");
+                }
+                if(response.isNoImages == false){
+                    if($('.assets').hasClass("no-imgix-image")){
+                        $('.assets').removeClass("no-imgix-image");
+                    }
+                }
+                $('.assets').html(response.html).trigger('contentUpdated');
+                if(response.hasMore == true){
+                    $('.load-more-imgix-image').show();
+                    $('.load-more-imgix-image').attr('data-next-page',response.next);
+                }
+                if(response.hasMore == false){
+                    $('.load-more-imgix-image').hide();
+                    $('.load-more-imgix-image').attr('data-next-page','');
+                }
+                if(response.current){
+                    $('.load-more-imgix-image').attr('data-current',response.current);
+                }
+
+                if(response.isError == true){
+                    $('.imgix-error-message').html(response.errorMessage);
+                }
+            });
+        });
+        // On search keyword form submit get imgix images
+        $("#new_imgix_form").submit(function(event){
+            event.preventDefault();
+            $('.imgix-error-message').html('');
+            $('.load-more-imgix-image').attr('data-next-page','0');
+            $('.load-more-imgix-image').attr('data-current','0');
+
+            var source = $("#current-selected-source").attr('current_selected_source');
+            var keyword = $('#imgix_search_keyword').val();
+            var cursor = $(".load-more-imgix-image").attr('data-next-page');
+
+            $.ajax({     
+                showLoader: true, 
+                url: "<?= /* @noEscape */ $block->getImgixImageUrl(); ?>", 
+                data: {sourceId: source,keyword: keyword,cursor: cursor},
+                type: "POST", 
+                dataType: 'json'
+            }).done(function (response) { 
+                if(response.isNoImages == true){
+                    $('.assets').addClass("no-imgix-image");
+                }
+                if(response.isNoImages == false){
+                    if($('.assets').hasClass("no-imgix-image")){
+                        $('.assets').removeClass("no-imgix-image");
+                    }
+                }
+                $('.assets').html(response.html).trigger('contentUpdated');
+                if(response.hasMore == true){
+                    $('.load-more-imgix-image').show();
+                    $('.load-more-imgix-image').attr('data-next-page',response.next);
+                }
+                if(response.hasMore == false){
+                    $('.load-more-imgix-image').hide();
+                    $('.load-more-imgix-image').attr('data-next-page','');
+                }
+                if(response.current){
+                    $('.load-more-imgix-image').attr('data-current',response.current);
+                }
+                if(response.isError == true){
+                    $('.imgix-error-message').html(response.errorMessage);
+                }
+            });
+        });
+
+        // On click LOAD MORE button click get imgix images and append  
+        $(document).on("click",".load-more-imgix-image",function(event){
+            event.preventDefault();
+
+            $('.imgix-error-message').html('');
+            var cursor = $(this).attr('data-next-page');
+            var source = $("#current-selected-source").attr('current_selected_source');
+            var keyword = $('#imgix_search_keyword').val();
+            
+            $.ajax({     
+                showLoader: true, 
+                url: "<?= /* @noEscape */ $block->getImgixImageUrl(); ?>", 
+                data: {sourceId: source,keyword: keyword,cursor: cursor},
+                type: "POST", 
+                dataType: 'json'
+            }).done(function (response) { 
+                $('.assets').append(response.html).trigger('contentUpdated');
+                
+                if(response.hasMore == true){
+                    $('.load-more-imgix-image').show();
+                    $('.load-more-imgix-image').attr('data-next-page',response.next);
+                }
+                if(response.hasMore == false){
+                    $('.load-more-imgix-image').hide();
+                    $('.load-more-imgix-image').attr('data-next-page','');
+                }
+                if(response.current){
+                    $('.load-more-imgix-image').attr('data-current',response.current);
+                }
+                
+                if(response.isError == true){
+                    $('.imgix-error-message').html(response.errorMessage);
+                }
+                
+            });
+        });
+
+    });
+</script>

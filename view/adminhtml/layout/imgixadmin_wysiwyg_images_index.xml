@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="Imgix\Magento\Block\Adminhtml\Wysiwyg\Images\Content" name="wysiwyg_imgix_images.content" template="Imgix_Magento::pagebuilder/browser/content.phtml">
+            <block class="Imgix\Magento\Block\Adminhtml\Wysiwyg\Images\Tree" name="wysiwyg_imgix_images.tree" template="Imgix_Magento::pagebuilder/browser/tree.phtml"/>
+        </block>
+    </container>
+    <referenceBlock name="wysiwyg_imgix_images.content" template="Imgix_Magento::pagebuilder/browser/content.phtml">
+        <arguments>
+            <argument name="viewModel" xsi:type="object">Imgix\Magento\ViewModel\ImgixViewModel</argument>
+        </arguments>
+    </referenceBlock>
+    <referenceBlock name="wysiwyg_imgix_images.tree" template="Imgix_Magento::pagebuilder/browser/tree.phtml">
+        <arguments>
+            <argument name="viewModel" xsi:type="object">Imgix\Magento\ViewModel\ImgixViewModel</argument>
+        </arguments>
+    </referenceBlock>
+</layout>

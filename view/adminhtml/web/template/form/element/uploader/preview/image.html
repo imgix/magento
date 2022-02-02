@@ -1,0 +1,45 @@
+<div class="pagebuilder-image-uploader-container" data-role="drop-zone" css="_loading: isLoading, 'has-data': hasData()">
+    <div class="pagebuilder-options" data-bind="visible: hasData() || isShowImageUploadOptions" if="visibleControls">
+        <div class="pagebuilder-options-wrapper">
+            <ul class="pagebuilder-options-links">
+                <li class="pagebuilder-options-link">
+                    <p class="image-upload-instructions" translate="translations.selectSourceImage"></p>
+                    <!-- Add Imgix Image Start -->
+                    <label
+                        data-bind="event: {change: addFileFromMediaGallery,click: openImgixImageDialog, mousedown: stopEvent}"
+                        class="file-uploader-button action-default"
+                        attr="id: mediaGalleryImgixUid, 'data-id': getFileId()"
+                        disable="disabled"
+                        data-force_static_path="1"
+                        translate="translations.addImgixImage">
+                    </label>
+                    <!-- Add Imgix Image End -->  
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="file-uploader-spinner"></div>
+    <div class="preview-image-container-loading-overlay"></div>
+    <div class="pagebuilder-image-uploader-container-dropzone-overlay" if="visibleControls">
+        <span class="dropzone-placeholder-text" translate="translations.dropHere"></span>
+    </div>
+    <div class="pagebuilder-image-empty-preview" data-bind="visible: !hasData() && isShowImageUploadInstructions">
+        <div class="admin__field-control">
+            <div class="file-uploader image-uploader">
+                <div class="file-uploader-area" if="visibleControls">
+                    <p class="image-upload-instructions" translate="translations.selectSourceImage"></p>
+                    <!-- Add Imgix Image Start -->
+                    <label
+                        data-bind="event: {change: addFileFromMediaGallery,click: openImgixImageDialog}"
+                        class="file-uploader-button action-default"
+                        attr="id: mediaGalleryImgixUid, 'data-id': getFileId()"
+                        disable="disabled"
+                        data-force_static_path="1"
+                        translate="translations.addImgixImage">
+                    </label>
+                    <!-- Add Imgix Image End -->   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

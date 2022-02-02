@@ -1,0 +1,21 @@
+<?php /** @var $block \Imgix\Magento\Block\Adminhtml\Wysiwyg\Images\Content */ ?>
+
+<div class="media-gallery-modal" 
+     data-mage-init='{"mediabrowser": <?= $block->escapeHtml($block->getFilebrowserSetupObject()) ?>}'>
+    
+    <div class="imgix-nav-container"><?= $block->getChildHtml('wysiwyg_imgix_images.tree') ?></div>
+    <div class="main">
+        <div id="error-message" data-action="show-error" class="messages imgix-error-message"></div>
+        <div id="contents" class="imgix-image-content imgix-gallery"></div>
+        <div class="imgix-load-more"><button class="load-more-imgix-image" data-next-page="0" >LOAD MORE</button></div>
+    </div>
+    <div class="page-main-actions">
+        <div class="page-actions">
+            <div class="page-actions-inner">
+                <div class="page-action-buttons">
+                    <?= $block->getButtonsHtml() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

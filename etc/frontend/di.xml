@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="imgix_add_images_to_gallery" type="Imgix\Magento\Plugin\AddImagesToGalleryBlock" />
+    </type>    
+    <type name="Magento\Checkout\CustomerData\AbstractItem">
+        <plugin name="minicart_after_get_itemdata_plugin" type="Imgix\Magento\Plugin\Minicart\AfterGetItemData" />
+    </type>
+    <preference for="Magento\Catalog\Block\Product\ImageFactory" 
+                type="Imgix\Magento\Block\Product\ImageFactory" />
+    <preference for="Magento\Checkout\Model\Cart\ImageProvider" 
+                type="Imgix\Magento\Model\Cart\ImageProvider" />
+    <preference for="Magento\ConfigurableProduct\Helper\Data" 
+                type="Imgix\Magento\Helper\ConfigurableProduct\Data" />
+    <preference for="Magento\Swatches\Helper\Data" 
+                type="Imgix\Magento\Helper\Swatches\Data" />
+</config>

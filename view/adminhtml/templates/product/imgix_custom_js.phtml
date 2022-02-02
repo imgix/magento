@@ -1,0 +1,15 @@
+<?php /** @var \Imgix\Magento\ViewModel\ImgixViewModel $viewModel */
+    $viewModel = $block->getData('viewModel');
+    $isEnable = $viewModel->isImgixEnabled();
+?>
+
+<script>
+    require([
+        'jquery',
+        "prototype",
+    ], function ($) {
+        $(".imgix-image-icon").parent("pagebuilder-draggable-content-type").addClass("imgix-image-menu");
+        window.catalogImgixImageUrl = '<?= /** @noEscape */ $block->getUrl('imgixadmin/imgix/post')?>';
+        window.imgixModuleStatus = '<?= /** @noEscape */ $isEnable?>';
+    });
+</script>

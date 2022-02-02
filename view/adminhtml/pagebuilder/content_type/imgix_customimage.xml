@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_PageBuilder:etc/content_type.xsd">
+    <type name="imgix_customimage"
+          label="imgix Image"
+          menu_section="media"
+          component="Magento_PageBuilder/js/content-type"
+          preview_component="Imgix_Magento/js/content-type/imgix-customimage/preview"
+          form="pagebuilder_imgix_customimage_form"
+          icon="icon-customimage"
+          sortOrder="1"
+          translate="label">
+        <children default_policy="deny"/>
+        <appearances>
+            <appearance name="default"
+                    default="true"
+                    preview_template="Imgix_Magento/content-type/imgix-customimage/default/preview"
+                    master_template="Imgix_Magento/content-type/imgix-customimage/default/master"
+                    reader="Magento_PageBuilder/js/master-format/read/configurable">
+                <elements>
+                    <element name="main">
+                        <!-- Style mappings for the Advance section of the `pagebuilder_base_form.xml`. Remove or reconfigure as needed. -->
+                        <style name="text_align" source="text_align"/>
+                        <style name="border" source="border_style" converter="Magento_PageBuilder/js/converter/style/border-style"/>
+                        <style name="border_color" source="border_color"/>
+                        <style name="background_color" source="background_color"/>
+                        <style name="background_image" source="background_image" converter="Magento_PageBuilder/js/converter/style/background-image" preview_converter="Magento_PageBuilder/js/converter/style/preview/background-image" persistence_mode="write"/>
+                        <style name="border_width" source="border_width" converter="Magento_PageBuilder/js/converter/style/border-width"/>
+                        <style name="border_radius" source="border_radius" converter="Magento_PageBuilder/js/converter/style/remove-px"/>
+                        <style name="margins" storage_key="margins_and_padding" reader="Magento_PageBuilder/js/property/margins" converter="Magento_PageBuilder/js/converter/style/margins"/>
+                        <style name="padding" storage_key="margins_and_padding" reader="Magento_PageBuilder/js/property/paddings" converter="Magento_PageBuilder/js/converter/style/paddings"/>
+                        <style name="display" source="display" converter="Magento_PageBuilder/js/converter/style/display" preview_converter="Magento_PageBuilder/js/converter/style/preview/display"/>
+                        <attribute name="name" source="data-content-type"/>
+                        <attribute name="appearance" source="data-appearance"/>
+                        <css name="css_classes"/>
+                        <!-- Add more style, attribute, html, and css nodes as needed. -->
+                    </element>
+                    <element name="desktop_image">
+                        <style name="border" source="border_style" converter="Magento_PageBuilder/js/converter/style/border-style"/>
+                        <style name="border_color" source="border_color"/>
+                        <style name="border_width" source="border_width" converter="Magento_PageBuilder/js/converter/style/border-width"/>
+                        <style name="border_radius" source="border_radius" converter="Magento_PageBuilder/js/converter/style/remove-px"/>
+                        <static_style source="max-width" value="100%"/>
+                        <static_style source="height" value="auto"/>
+                        <attribute name="imgix_customimage" source="src" converter="Imgix_Magento/js/converter/attribute/src" preview_converter="Magento_PageBuilder/js/converter/attribute/preview/src"/>
+                        <attribute name="alt" source="alt"/>
+                        <attribute name="imgix_width" source="imgix_width"/>
+                        <attribute name="imgix_height" source="imgix_height"/>
+                        <attribute name="imgix_format" source="imgix_format"/>
+                        <attribute name="imgix_auto" source="imgix_auto"/>
+                        <attribute name="imgix_crop" source="imgix_crop"/>
+                        <attribute name="title_attribute" source="title"/>
+                        <attribute name="srcset" source="srcset"/>
+                    </element>
+                    <element name="link">
+                        <attribute name="link_url" reader="Magento_PageBuilder/js/property/link" persistence_mode="read"/>
+                        <attribute name="virtual_link_href" storage_key="link_url" source="href" converter="Magento_PageBuilder/js/converter/attribute/link-href" persistence_mode="write"/>
+                        <attribute name="virtual_link_target" storage_key="link_url" source="target" converter="Magento_PageBuilder/js/converter/attribute/link-target" persistence_mode="write"/>
+                        <attribute name="virtual_link_type" storage_key="link_url" source="data-link-type" converter="Magento_PageBuilder/js/converter/attribute/link-type" persistence_mode="write"/>
+                        <attribute name="title_attribute" source="title"/>
+                    </element>
+                    <element name="empty_link"/>
+                    <element name="caption">
+                        <html name="image_caption" converter="Magento_PageBuilder/js/converter/html/tag-escaper"/>
+                    </element>
+                </elements>
+                <converters>
+                    <converter component="Imgix_Magento/js/mass-converter/empty-mobile-image" name="empty_mobile_image">
+                        <config>
+                            <item name="desktop_image_variable" value="imgix_customimage"/>
+                            <item name="mobile_image_variable" value="mobile_image"/>
+                        </config>
+                    </converter>
+                </converters>
+            </appearance>
+            <!-- Add more appearances here as needed. -->
+        </appearances>
+        <additional_data>
+            <item name="uploaderConfig" xsi:type="array">
+                <item name="maxFileSize" xsi:type="object">ImageMaxFileSizeDesktop</item>
+                <item name="allowedExtensions" xsi:type="string">jpg jpeg gif png</item>
+                <item name="component" xsi:type="string">Magento_PageBuilder/js/form/element/image-uploader</item>
+                <item name="componentType" xsi:type="string">imageUploader</item>
+                <item name="dataScope" xsi:type="string">imgix_customimage</item>
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="object">Magento\PageBuilder\Model\Config\ContentType\AdditionalData\Provider\Uploader\SaveUrl</item>
+                </item>
+                <item name="previewTmpl" xsi:type="string">Magento_PageBuilder/form/element/uploader/preview</item>
+                <item name="template" xsi:type="string">Imgix_Magento/form/element/uploader/preview/image</item>
+                <item name="mediaGallery" xsi:type="array">
+                    <item name="openDialogUrl" xsi:type="object">Imgix\Magento\Model\Config\ContentType\AdditionalData\Provider\Uploader\OpenDialogUrl</item>
+                    <item name="openDialogTitle" xsi:type="string" translate="true">Add imgix image...</item>
+                    <item name="initialOpenSubpath" xsi:type="string">wysiwyg</item>
+                    <item name="storeId" xsi:type="object">Magento\PageBuilder\Model\Config\ContentType\AdditionalData\Provider\StoreId</item>
+                </item>
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
+            </item>
+        </additional_data>
+    </type>
+</config>

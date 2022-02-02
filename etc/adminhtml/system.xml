@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="imgix" translate="label" sortOrder="100">
+            <label>imgix</label>
+        </tab>
+        <section id="imgix" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>imgix Configuraion</label>
+            <tab>imgix</tab>
+            <resource>Imgix_Magento::config</resource>
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <label>Enabled</label>
+                </field>
+                <field id="imgix_api_key" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>imgix API Key</label>
+                    <comment><![CDATA[Already a customer? Create an API key from the
+                                    <a href="https://dashboard.imgix.com/api-keys" target="_blank">imgix dashboard</a>
+                                    . New customers, create a <a href="https://dashboard.imgix.com/sign-up" target="_blank">
+                                    new account</a> first.]]></comment>
+                </field>
+                <field id="default_options" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Default image options</label>
+                    <comment><![CDATA[
+                    The extension is pre-configured with certain <a href="https://docs.imgix.com/apis/rendering/auto/auto" target="_blank">defaults</a> that we think may be
+                    helpful for most users. While these defaults can be changed, we <a href="https://docs.imgix.com/tutorials/responsive-images-srcset-imgix" target="_blank">recommend</a> all
+                    users specify a width and/or height.
+                    <br/>
+                    <strong>Example: </strong> w=700&h=700&auto=format&fit=crop&crop=entropy]]></comment>
+                </field>
+                <field id="small_options" translate="label" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Small image options</label>
+                    <comment><![CDATA[
+                    The extension is pre-configured with certain <a href="https://docs.imgix.com/apis/rendering/auto/auto" target="_blank">defaults</a> that we think may be
+                    helpful for most users. While these defaults can be changed, we <a href="https://docs.imgix.com/tutorials/responsive-images-srcset-imgix" target="_blank">recommend</a> all
+                    users specify a width and/or height.
+                    <br/>
+                    <strong>Example: </strong> w=500&h=500&auto=format&fit=crop&crop=entropy]]></comment>
+                </field>
+                <field id="thumbnail_options" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Thumbnail image options</label>
+                    <comment><![CDATA[
+                    The extension is pre-configured with certain <a href="https://docs.imgix.com/apis/rendering/auto/auto" target="_blank">defaults</a> that we think may be
+                    helpful for most users. While these defaults can be changed, we <a href="https://docs.imgix.com/tutorials/responsive-images-srcset-imgix" target="_blank">recommend</a> all
+                    users specify a width and/or height.
+                    <br/>
+                    <strong>Example: </strong> w=100&h=100&auto=format&fit=crop&crop=entropy]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

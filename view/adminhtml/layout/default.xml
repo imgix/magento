@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="js">
+            <block class="Magento\Backend\Block\Template" 
+                   template="Imgix_Magento::product/imgix_custom_js.phtml"
+                   name="imgix_custom_js_backend">
+            </block>
+        </referenceContainer>
+        <referenceBlock name="imgix_custom_js_backend" template="Imgix_Magento::product/imgix_custom_js.phtml">
+            <arguments>
+                <argument name="viewModel" xsi:type="object">Imgix\Magento\ViewModel\ImgixViewModel</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

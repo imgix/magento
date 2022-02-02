@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_gallery_prepare_layout">
+        <observer name="change_imgix_template" instance="Imgix\Magento\Observer\ChangeImgixTemplateObserver" />
+    </event>
+</config>

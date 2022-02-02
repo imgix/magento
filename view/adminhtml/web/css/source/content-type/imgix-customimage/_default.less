@@ -1,0 +1,42 @@
+//  Required when using a custom SVG icon for your content type in the Page Builder panel
+.icon-customimage {
+    content: url('@{baseDir}Imgix_Magento/css/images/content-type/imgix-customimage/appearance/icon-customimage.svg');
+    height: 16px;
+    margin-bottom: -2px;
+    margin-left: 1px;
+    width: 16px;
+}
+
+.pagebuilder-image {
+    width: 100%;
+}
+
+.pagebuilder-content-type [data-content-type='imgix_customimage'] {
+    box-sizing: border-box;
+    margin: 0;
+
+    div.pagebuilder-image-empty-preview {
+        align-items: center;
+        background: @color-white-fog;
+        border-radius: inherit;
+        display: flex;
+        height: 300px;
+        justify-content: center;
+        width: 100%;
+
+        span {
+            color: @color-gray65-lighten;
+        }
+    }
+
+    figcaption {
+        padding: 15px 0;
+        word-wrap: break-word;
+    }
+
+    .preview-image,
+    [data-element='link'],
+    [data-element='link'] img {
+        border-radius: inherit;
+    }
+}
