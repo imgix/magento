@@ -1,8 +1,9 @@
 {
-    "name": "imgix/magento2-magento",
+    "name": "imgix/magento",
     "description": "imgix extension to search and select product images within Magento 2",
     "type": "magento2-module",
     "version": "1.0.0",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "imgix",
