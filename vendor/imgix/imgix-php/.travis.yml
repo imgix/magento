@@ -1,0 +1,8 @@
+language: php
+script: phpunit --bootstrap src/autoload.php tests
+php:
+  - '7.3'
+  - '7.4'
+  - '8.0'
+install:
+  - composer install
