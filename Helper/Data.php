@@ -56,10 +56,11 @@ class Data extends AbstractHelper
      */
     public function getSecureApiKey(): string
     {
-        return $this->scopeConfig->getValue(
+        $secureApiKey =  $this->scopeConfig->getValue(
             self::XPATH_FIELD_API_KEY,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
+        return isset($secureApiKey) ? (string) $secureApiKey : '';
     }
 
     /**
