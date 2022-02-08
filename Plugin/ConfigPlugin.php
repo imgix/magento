@@ -55,7 +55,10 @@ class ConfigPlugin
     ) {
 
         $data = $subject->getData();
-        if (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
+        
+        if ($data['groups']['settings']['fields']['enabled']['value'] == 0) {
+            return $proceed();
+        } elseif (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
             $apiKey = $data['groups']['settings']['fields']['imgix_api_key']['value'];
 
             $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
