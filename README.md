@@ -11,8 +11,18 @@ Use the `imgix/magento` extension to power your Adobe Commerce (Magento) images.
 <!-- /ix-docs-ignore -->
 
 - [Installation](#installation)
-- [Usage](#usage)
 
 # Installation
 
-# Usage
+You can install the extension with composer by running the following commands in your root directory:
+
+```
+composer require imgix/magento
+php bin/magento setup:upgrade
+php bin/magento setup:di:compile
+php bin/magento setup:static-content:deploy -f
+php bin/magento indexer:reindex
+php bin/magento cache:clean
+php bin/magento cache:flush
+sudo chmod -R 777 var/ pub/ generated/
+```
