@@ -159,4 +159,14 @@ class NewImgixImage extends \Magento\Backend\Block\Widget\Form\Generic
     {
         return $this->urlBuilder->getUrl('imgixadmin/imgix/post');
     }
+
+    /**
+     * Check module is enable
+     *
+     * @return array
+     */
+    public function isImgixEnabled()
+    {
+        return $this->helperData->isEnabled();
+    }
 }
