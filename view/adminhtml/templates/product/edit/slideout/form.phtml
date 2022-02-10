@@ -1,4 +1,7 @@
-<?php $imgixSources = $block->getImgixImageSources(); ?>
+<?php
+    $imgixSources = $block->getImgixImageSources();
+    $isEnable = $block->isImgixEnabled();
+?>
 
 <div id="<?= $block->escapeHtmlAttr($block->getNameInLayout()) ?>"
     data-modal-info='<?= /* @noEscape */ $block->getWidgetOptions() ?>'
@@ -20,7 +23,7 @@
                             <circle cx="6.5" cy="15.5" r="1.5" />
                         </svg>
                     </div>
-                    <h2 id="current-selected-source"></h2>
+                    <h2 id="current-selected-source" current_selected_source="0"> No sources</h2>
                     <div id="assets-arrow-icon" class="assets-arrow-icon">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="7" viewBox="0 0 10 7">
@@ -30,16 +33,18 @@
                 </div>
                 <div id="source-selector-dropdown" class="source-selector-dropdown-hidden source-selector-dropdown">
                     <ul class="source-selector-menu">
-                        <?php foreach ($imgixSources as $key => $source) {?>
-                            <li class="source-selector-menu-item" data-source-id="<?=/*@noEscape*/ $source['id']?>">
-                                <div class="deployment-indicator"></div>
-                                <div class="text-container">
-                                    <div class="source-name"><?=/*@noEscape*/ $source['name']?></div>
-                                    <div class="source-type-container">
-                                        <div class="source-type"><?=/*@noEscape*/ $source['deployment_type']?></div>
+                        <?php if ($isEnable == 1) { ?>
+                            <?php foreach ($imgixSources as $key => $source) {?>
+                                <li class="source-selector-menu-item" data-source-id="<?=/*@noEscape*/ $source['id']?>">
+                                    <div class="deployment-indicator"></div>
+                                    <div class="text-container">
+                                        <div class="source-name"><?=/*@noEscape*/ $source['name']?></div>
+                                        <div class="source-type-container">
+                                            <div class="source-type"><?=/*@noEscape*/ $source['deployment_type']?></div>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            <?php } ?>
                         <?php } ?>
                     </ul>
                 </div>

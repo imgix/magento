@@ -10,8 +10,6 @@ $formNameEscaped = $block->escapeHtmlAttr($block->getFormName());
 
 /** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
 $jsonHelper = $block->getData('jsonHelper');
-
-$imgixHelper = $this->helper(Imgix\Magento\Helper\Data::class);
 ?>
 
 <div class="row">
@@ -25,18 +23,16 @@ $imgixHelper = $this->helper(Imgix\Magento\Helper\Data::class);
             <span><?= $block->escapeHtml(__('Add Video')) ?></span>
         </button>
     </div>
-    <?php if ($imgixHelper->isEnabled() == 1) { ?>
-        <div class="add-imgix-button-container">
-            <button id="add_imgix_button"
-                    title="<?= $block->escapeHtmlAttr(__('Add imgix Image')) ?>"
-                    data-role="add-imgix-button"
-                    type="button"
-                    class="action-secondary"
-                    data-ui-id="widget-button-1">
-                <span><?= $block->escapeHtml(__('Add imgix Image')) ?></span>
-            </button>
-        </div>
-    <?php  } ?>
+    <div class="add-imgix-button-container">
+        <button id="add_imgix_button"
+                title="<?= $block->escapeHtmlAttr(__('Add imgix Image')) ?>"
+                data-role="add-imgix-button"
+                type="button"
+                class="action-secondary"
+                data-ui-id="widget-button-1">
+            <span><?= $block->escapeHtml(__('Add imgix Image')) ?></span>
+        </button>
+    </div>
 </div>
 
 
