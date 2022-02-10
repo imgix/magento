@@ -271,17 +271,7 @@ class AssociatedProducts extends MageAssociatedProducts
                                 'chosen' => [],
                             ];
                             $options = $attribute->usesSource() ? $attribute->getSource()->getAllOptions() : [];
-                            foreach ($options as $option) {
-                                if (!empty($option['value'])) {
-                                    $attributes[$attribute->getAttributeId()]['options'][$option['value']] = [
-                                        'attribute_code' => $attribute->getAttributeCode(),
-                                        'attribute_label' => $attribute->getStoreLabel(0),
-                                        'id' => $option['value'],
-                                        'label' => $option['label'],
-                                        'value' => $option['value'],
-                                    ];
-                                }
-                            }
+                            $attributes = $this->getproductOptions($options, $attributes, $attribute);
                         }
                         $optionId = $variation[$attribute->getId()]['value'];
                         $variationOption = [
@@ -472,5 +462,29 @@ class AssociatedProducts extends MageAssociatedProducts
     protected function getAttributes()
     {
         return (array)$this->configurableType->getConfigurableAttributesAsArray($this->locator->getProduct());
+    }
+
+    /**
+     * GetProductOptions function
+     *
+     * @param mixed $options
+     * @param mixed $attributes
+     * @param mixed $attribute
+     * @return void
+     */
+    protected function getproductOptions($options, $attributes, $attribute)
+    {
+        foreach ($options as $option) {
+            if (!empty($option['value'])) {
+                $attributes[$attribute->getAttributeId()]['options'][$option['value']] = [
+                    'attribute_code' => $attribute->getAttributeCode(),
+                    'attribute_label' => $attribute->getStoreLabel(0),
+                    'id' => $option['value'],
+                    'label' => $option['label'],
+                    'value' => $option['value'],
+                ];
+            }
+        }
+        return $attributes;
     }
 }
