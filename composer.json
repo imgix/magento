@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "imgix/imgix-php": "^3.3.0"
+        "imgix/imgix-php": "^3.3.1"
     },
     "minimum-stability": "dev",
     "autoload": {
