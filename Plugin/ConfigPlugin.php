@@ -56,8 +56,10 @@ class ConfigPlugin
 
         $data = $subject->getData();
         
-        if ($data['groups']['settings']['fields']['enabled']['value'] == 0) {
-            return $proceed();
+        if (isset($data['groups']['settings']['fields']['enabled']['value'])) {
+            if ($data['groups']['settings']['fields']['enabled']['value'] == 0) {
+                return $proceed();
+            }
         } elseif (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
             $apiKey = $data['groups']['settings']['fields']['imgix_api_key']['value'];
 
