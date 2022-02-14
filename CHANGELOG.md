@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5](https://github.com/imgix/magento/compare/v1.0.4...v1.0.5) (2022-02-14)
+
+### Fixes
+
+- Undefined index: settings, addresses "Something went wrong while saving this configuration" error
+- Unable to enable imgix module in admin configuration
+
+### Chore
+
+- Remove `"minimum-stability": "dev"` from composer.json
+- Upgrade module version `1.0.0` to `1.0.5` in module.xml
+
 ## [1.0.4](https://github.com/imgix/magento/compare/v1.0.3...v1.0.4) (2022-02-11)
 
 ### Chore
