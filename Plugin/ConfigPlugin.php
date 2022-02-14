@@ -60,17 +60,23 @@ class ConfigPlugin
             if ($data['groups']['settings']['fields']['enabled']['value'] == 0) {
                 return $proceed();
             }
-        } elseif (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
-            $apiKey = $data['groups']['settings']['fields']['imgix_api_key']['value'];
+        }
+        if (isset($data['groups']['settings']['fields']['enabled']['value'])) {
+            if ($data['groups']['settings']['fields']['enabled']['value'] == 1) {
 
-            $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
+                if (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
+                    $apiKey = $data['groups']['settings']['fields']['imgix_api_key']['value'];
 
-            if ($apiKeyValidation['authorized']== 0) {
-                throw new \Magento\Framework\Exception\LocalizedException(__($apiKeyValidation['message']));
-            }
-            if ($apiKeyValidation['authorized']== 1) {
-                $this->messageManager->addSuccessMessage($apiKeyValidation['message']);
-                return $proceed();
+                    $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
+
+                    if ($apiKeyValidation['authorized']== 0) {
+                        throw new \Magento\Framework\Exception\LocalizedException(__($apiKeyValidation['message']));
+                    }
+                    if ($apiKeyValidation['authorized']== 1) {
+                        $this->messageManager->addSuccessMessage($apiKeyValidation['message']);
+                        return $proceed();
+                    }
+                }
             }
         }
     }
