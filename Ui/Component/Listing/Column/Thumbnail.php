@@ -7,6 +7,7 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
+use Imgix\Magento\Helper\Data as ImgixHelper;
 
 class Thumbnail extends Column
 {
@@ -19,6 +20,7 @@ class Thumbnail extends Column
      * @param UiComponentFactory $uiComponentFactory
      * @param Image $imageHelper
      * @param UrlInterface $urlBuilder
+     * @param ImgixHelper $imgixHelper
      * @param array $components
      * @param array $data
      */
@@ -27,11 +29,13 @@ class Thumbnail extends Column
         UiComponentFactory $uiComponentFactory,
         Image $imageHelper,
         UrlInterface $urlBuilder,
+        ImgixHelper $imgixHelper,
         array $components = [],
         array $data = []
     ) {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->imageHelper = $imageHelper;
+        $this->imgixHelper = $imgixHelper;
         $this->urlBuilder = $urlBuilder;
     }
 
@@ -50,6 +54,11 @@ class Thumbnail extends Column
                     $product = new DataObject($item);
                     $imageUrl = $product->getThumbnail();
                     if (strpos($imageUrl, 'imgix') !== false) {
+                        $thumbnailOptions = null;
+                        $thumbnailOptions = $this->imgixHelper->getThumbnailImageOptions();
+                        if (!empty($thumbnailOptions)) {
+                            $imageUrl = $imageUrl.'?'.$thumbnailOptions;
+                        }
                         $item[$fieldName . '_src'] = $imageUrl;
                         $item[$fieldName . '_alt'] = $this->getAlt($item) ?: $product->getName();
                         $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
