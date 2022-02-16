@@ -4,41 +4,48 @@ namespace Imgix\Magento\Ui\Component\Listing\Column\ConfigurableProducts;
 
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
+use Imgix\Magento\Helper\Data as ImgixHelper;
+use Magento\Catalog\Helper\Image;
+use Magento\Framework\UrlInterface;
+use Magento\Ui\Component\Listing\Columns\Column;
 
-class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
+class Thumbnail extends Column
 {
     public const NAME = 'thumbnail';
 
     public const ALT_FIELD = 'name';
 
     /**
-     * @var \Magento\Catalog\Helper\Image
+     * @var Image
      */
     private $imageHelper;
 
     /**
-     * @var \Magento\Framework\UrlInterface
+     * @var UrlInterface
      */
     private $urlBuilder;
 
     /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
-     * @param \Magento\Catalog\Helper\Image $imageHelper
-     * @param \Magento\Framework\UrlInterface $urlBuilder
+     * @param Image $imageHelper
+     * @param ImgixHelper $imgixHelper
+     * @param UrlInterface $urlBuilder
      * @param array $components
      * @param array $data
      */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
-        \Magento\Catalog\Helper\Image $imageHelper,
-        \Magento\Framework\UrlInterface $urlBuilder,
+        Image $imageHelper,
+        ImgixHelper $imgixHelper,
+        UrlInterface $urlBuilder,
         array $components = [],
         array $data = []
     ) {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->imageHelper = $imageHelper;
+        $this->imgixHelper = $imgixHelper;
         $this->urlBuilder = $urlBuilder;
     }
 
@@ -56,6 +63,11 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
                 $product = new \Magento\Framework\DataObject($item);
                 $imageUrl = $product->getThumbnail();
                 if (strpos($imageUrl, 'imgix') !== false) {
+                    $thumbnailOptions = null;
+                    $thumbnailOptions = $this->imgixHelper->getThumbnailImageOptions();
+                    if (!empty($thumbnailOptions)) {
+                        $imageUrl = $imageUrl.'?'.$thumbnailOptions;
+                    }
                     $item[$fieldName . '_src'] = $imageUrl;
                     $item[$fieldName . '_alt'] = $this->getAlt($item) ?: $product->getName();
                     $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(

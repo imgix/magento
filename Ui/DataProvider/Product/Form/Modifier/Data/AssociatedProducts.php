@@ -16,6 +16,7 @@ use Magento\Framework\UrlInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Escaper;
 use Magento\ConfigurableProduct\Ui\DataProvider\Product\Form\Modifier\Data\AssociatedProducts as MageAssociatedProducts;
+use Imgix\Magento\Helper\Data as ImgixHelper;
 
 class AssociatedProducts extends MageAssociatedProducts
 {
@@ -95,6 +96,7 @@ class AssociatedProducts extends MageAssociatedProducts
      * @param JsonHelper $jsonHelper
      * @param ImageHelper $imageHelper
      * @param Escaper|null $escaper
+     * @param ImgixHelper $imgixHelper
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -107,7 +109,8 @@ class AssociatedProducts extends MageAssociatedProducts
         CurrencyInterface $localeCurrency,
         JsonHelper $jsonHelper,
         ImageHelper $imageHelper,
-        Escaper $escaper = null
+        Escaper $escaper = null,
+        ImgixHelper $imgixHelper
     ) {
         $this->locator = $locator;
         $this->urlBuilder = $urlBuilder;
@@ -118,6 +121,7 @@ class AssociatedProducts extends MageAssociatedProducts
         $this->localeCurrency = $localeCurrency;
         $this->jsonHelper = $jsonHelper;
         $this->imageHelper = $imageHelper;
+        $this->imgixHelper = $imgixHelper;
         $this->escaper = $escaper ?: ObjectManager::getInstance()->get(Escaper::class);
         parent::__construct(
             $locator,
@@ -289,6 +293,11 @@ class AssociatedProducts extends MageAssociatedProducts
                     $imageUrl = $product->getThumbnail();
                     if (strpos($imageUrl, 'imgix') !== false) {
                         $thumbnailImageUrl = $imageUrl;
+                        $thumbnailOptions = null;
+                        $thumbnailOptions = $this->imgixHelper->getThumbnailImageOptions();
+                        if (!empty($thumbnailOptions)) {
+                            $thumbnailImageUrl = $thumbnailImageUrl.'?'.$thumbnailOptions;
+                        }
                     } else {
                         $thumbnailImageUrl = $this->imageHelper->init($product, 'product_thumbnail_image')->getUrl();
                     }
