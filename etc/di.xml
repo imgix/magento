@@ -48,6 +48,7 @@
                 <item name="optgroup" xsi:type="string">optgroup</item>
                 <item name="option" xsi:type="string">option</item>
                 <item name="pre" xsi:type="string">pre</item>
+                <item name="a" xsi:type="string">a</item>
             </argument>
             <argument name="allowedAttributes" xsi:type="array">
                 <item name="alt" xsi:type="string">alt</item>
@@ -102,12 +103,22 @@
                 <item name="imgix_auto" xsi:type="string">imgix_auto</item>
                 <item name="imgix_crop" xsi:type="string">imgix_crop</item>
                 <item name="srcset" xsi:type="string">srcset</item>
+                <item name="onclick" xsi:type="string">onclick</item>
+                <item name="download" xsi:type="string">download</item>
+                <item name="media" xsi:type="string">media</item>
+                <item name="ping" xsi:type="string">ping</item>
+                <item name="hreflang" xsi:type="string">hreflang</item>
             </argument>
             <argument name="attributesAllowedByTags" xsi:type="array">
                 <item name="a" xsi:type="array">
                     <item name="tabindex" xsi:type="string">tabindex</item>
                     <item name="target" xsi:type="string">target</item>
                     <item name="rel" xsi:type="string">rel</item>
+                    <item name="onclick" xsi:type="string">onclick</item>
+                    <item name="download" xsi:type="string">download</item>
+                    <item name="media" xsi:type="string">media</item>
+                    <item name="ping" xsi:type="string">ping</item>
+                    <item name="hreflang" xsi:type="string">hreflang</item>
                 </item>
                 <item name="img" xsi:type="array">
                     <item name="src" xsi:type="string">src</item>
