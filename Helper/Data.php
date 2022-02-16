@@ -119,7 +119,8 @@ class Data extends AbstractHelper
         if (isset($cursor)) {
             $params = [
                 'page[cursor]' => $cursor,
-                'filter[media_kind]'=> "Image"
+                'filter[media_kind]'=> "Image",
+                'page[limit]'=> 21
             ];
             $requestUrl = $requestUrl . '?' . http_build_query($params);
         }
@@ -188,7 +189,8 @@ class Data extends AbstractHelper
                 'filter[or:keywords]' => $keyword,
                 'filter[or:origin_path]' => $keyword,
                 'page[cursor]' => $cursor,
-                'filter[media_kind]'=> "Image"
+                'filter[media_kind]'=> "Image",
+                'page[limit]'=> 21
             ];
             $requestUrl = $requestUrl . '?' . http_build_query($params);
         }
