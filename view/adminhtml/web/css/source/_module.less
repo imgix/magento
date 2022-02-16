@@ -13,6 +13,23 @@
 @color-caption-grey-color: #6c7f8e;
 @color-light-blue: #00bffe;
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('@{baseDir}Imgix_Magento/css/fonts/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('@{baseDir}Imgix_Magento/css/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 //  search box
 .imgix-search-keyword {
     max-width: 310px;
@@ -22,6 +39,7 @@
 
 //  Image gallery popup
 .new-imgix-image,
+#new-imgix-image,
 .imgix-modal-dialog-message {
     background-color: @color-lightdarkblue;
     border: 1px solid @color-lightred;
@@ -38,6 +56,8 @@
             padding: 10px 15px 10px 35px;
             line-height: 18px;
             color: @color-white;
+            font-family: 'Roboto';
+            font-weight: 500;
             &.video-cancel-button,
             &.cancel {
                 background-color: @color-darklue;
@@ -167,6 +187,8 @@
         font-size: 1.5rem;
         line-height: 18px;
         padding: 10px 15px 10px 35px;
+        font-family: 'Roboto';
+        font-weight: 500;
     }
 }
 
