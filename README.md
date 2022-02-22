@@ -24,5 +24,4 @@ php bin/magento setup:static-content:deploy -f
 php bin/magento indexer:reindex
 php bin/magento cache:clean
 php bin/magento cache:flush
-sudo chmod -R 777 var/ pub/ generated/
 ```
