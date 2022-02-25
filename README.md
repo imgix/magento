@@ -12,14 +12,22 @@ Use the `imgix/magento` extension to power your Adobe Commerce (Magento) images.
 
 <!-- NB: Run `npx markdown-toc README.md --maxdepth 4 | sed -e 's/[[:space:]]\{2\}/    /g'` to generate TOC, and copy the result from the terminal to replace the TOC below :) -->
 
+<!-- prettier-ignore-start -->
+
+<!-- toc -->
+
 - [Installation](#installation)
 - [Usage](#usage)
+
+<!-- tocstop -->
+
+<!-- prettier-ignore-end -->
 
 # Installation
 
 You can install the extension with composer by running the following commands in your root directory:
 
-```
+```bash
 composer require imgix/magento
 php bin/magento setup:upgrade
 php bin/magento setup:di:compile
