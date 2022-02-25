@@ -10,7 +10,10 @@ Use the `imgix/magento` extension to power your Adobe Commerce (Magento) images.
 ---
 <!-- /ix-docs-ignore -->
 
+<!-- NB: Run `npx markdown-toc README.md --maxdepth 4 | sed -e 's/[[:space:]]\{2\}/    /g'` to generate TOC, and copy the result from the terminal to replace the TOC below :) -->
+
 - [Installation](#installation)
+- [Usage](#usage)
 
 # Installation
 
@@ -25,3 +28,7 @@ php bin/magento indexer:reindex
 php bin/magento cache:clean
 php bin/magento cache:flush
 ```
+
+# Usage
+
+For information on how to use this extension, please refer to the [user guide](https://github.com/imgix/magento/blob/main/documentation/Magento%20Extension%20User%20Guide.pdf).
