@@ -131,7 +131,7 @@ Users may modify the selected image within the component by selecting the Edit b
 - [Format](https://docs.imgix.com/apis/rendering/format/fm): Converts the image to the specified format
 - [Auto](https://docs.imgix.com/apis/rendering/auto/auto): Performs some baseline optimizations to the image
 - [Crop](https://docs.imgix.com/apis/rendering/size/crop): Controls how the image should be cropped
-- 
+
 Once any number of these configurations are entered, users can accept these changes by pressing the **Save** button on the top left.
 
 ![Saving your rendering API configuration](https://assets.imgix.net/sdk/magento/15-saving_configuration.png?pad=40&w=1520&mask-bg=E8F0F4&mask=corners&corner-radius=12&bg=E8F0F4&auto=compress,format)
