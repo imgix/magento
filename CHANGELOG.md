@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0](https://github.com/imgix/magento/compare/v1.0.5...v1.0.6) (2022-03-08)
+
+### Feat
+
+- Dispaly 21 images per page by default
+
+### Fixes
+
+- HTML warning gets shown when saving image as template
+- Admin product thumbnails are display the origin image (full size)
+- update default param options to not include `crop` parameters
+
 ## [1.0.5](https://github.com/imgix/magento/compare/v1.0.4...v1.0.5) (2022-02-14)
 
 ### Fixes
