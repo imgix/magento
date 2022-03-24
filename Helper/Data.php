@@ -250,7 +250,7 @@ class Data extends AbstractHelper
      */
     public function getEnabledImgixSources(): array
     {
-        $requestUrl = "https://api.imgix.com/api/v1/sources?filter[enabled]=true";
+        $requestUrl = "https://api.imgix.com/api/v1/sources?filter[enabled]=true&page[size]=100";
         $setHeader = [
             'Accept: application/vnd.api+json',
             'Authorization: Bearer '.$this->getSecureApiKey(),
