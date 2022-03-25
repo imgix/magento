@@ -62,7 +62,7 @@ class Tree extends \Magento\Backend\Block\Template
         if (isset($sources['errors'])) {
             return $sources = [];
         }
-        return $this->helperData->getEnabledImgixSources();
+        return $sources;
     }
 
     /**
