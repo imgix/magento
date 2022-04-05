@@ -50,7 +50,7 @@ class Data extends AbstractHelper
     }
 
     /**
-     * Get imagix API key from admin configuration
+     * Get imgix API key from admin configuration
      *
      * @return string|null
      */
@@ -242,7 +242,7 @@ class Data extends AbstractHelper
     }
 
     /**
-     * Get list of sources which is created on imagix API
+     * Get list of sources which is created on imgix API
      *
      * Also source is enabled and deployment_status is deployed
      *
