@@ -16,4 +16,9 @@
     </type>
     <preference for="Magento\ConfigurableProduct\Ui\DataProvider\Product\Form\Modifier\Data\AssociatedProducts" 
     			type="Imgix\Magento\Ui\DataProvider\Product\Form\Modifier\Data\AssociatedProducts"/>
+    
+    <preference for="Magento\Catalog\Model\Product\Gallery\CreateHandler" 
+    			type="Imgix\Magento\Model\Product\Gallery\CreateHandler"/>
+    <preference for="Magento\Catalog\Model\Product\Gallery\UpdateHandler"
+               	type="Imgix\Magento\Model\Product\Gallery\UpdateHandler" />
 </config>
