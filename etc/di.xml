@@ -2,10 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/e†c/config.xsd">
     <preference for="Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content" 
     			type="Imgix\Magento\Block\Adminhtml\Product\Helper\Form\Gallery\Content"/>
-    <preference for="Magento\Catalog\Model\Product\Gallery\CreateHandler" 
-    			type="Imgix\Magento\Model\Product\Gallery\CreateHandler"/>
-    <preference for="Magento\Catalog\Model\Product\Gallery\UpdateHandler"
-               	type="Imgix\Magento\Model\Product\Gallery\UpdateHandler" />
+    
     <virtualType name="DefaultWYSIWYGValidator" type="Magento\Framework\Validator\HTML\ConfigurableWYSIWYGValidator">
         <arguments>
             <argument name="allowedTags" xsi:type="array">
