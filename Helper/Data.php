@@ -8,6 +8,8 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Json\Helper\Data as JsonHelper;
 use Magento\Framework\HTTP\Adapter\CurlFactory;
 use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\Component\ComponentRegistrarInterface;
+use Magento\Framework\Filesystem\Directory\ReadFactory;
 
 class Data extends AbstractHelper
 {
@@ -23,17 +25,23 @@ class Data extends AbstractHelper
      * @param JsonHelper $jsonHelper
      * @param CurlFactory $curlFactory
      * @param Json $json
+     * @param ComponentRegistrarInterface $componentRegistrar
+     * @param ReadFactory $readFactory
      */
     public function __construct(
         Context $context,
         JsonHelper $jsonHelper,
         CurlFactory $curlFactory,
-        Json $json
+        Json $json,
+        ComponentRegistrarInterface $componentRegistrar,
+        ReadFactory $readFactory
     ) {
         parent::__construct($context);
         $this->curlFactory = $curlFactory;
         $this->jsonHelper = $jsonHelper;
         $this->_json = $json;
+        $this->componentRegistrar = $componentRegistrar;
+        $this->readFactory = $readFactory;
     }
 
     /**
@@ -114,6 +122,7 @@ class Data extends AbstractHelper
      */
     public function getImgixAssets($sourceId, $cursor): array
     {
+
         $requestUrl = "https://api.imgix.com/api/v1/sources/".$sourceId."/assets";
         /* query parameter for POST BODY */
         if (isset($cursor)) {
@@ -127,8 +136,10 @@ class Data extends AbstractHelper
         $setHeader = [
             'Accept: application/vnd.api+json',
             'Authorization: Bearer '.$this->getSecureApiKey(),
-            'Content-Type: application/vnd.api+json'
+            'Content-Type: application/vnd.api+json',
+            'X-imgix-plugin: magento/v'.$this->getModulePackageVersion()
         ];
+        
         /* Create curl factory */
         $httpAdapter = $this->curlFactory->create();
         $httpAdapter->write(
@@ -197,7 +208,8 @@ class Data extends AbstractHelper
         $setHeader = [
             'Accept: application/vnd.api+json',
             'Authorization: Bearer '.$this->getSecureApiKey(),
-            'Content-Type: application/vnd.api+json'
+            'Content-Type: application/vnd.api+json',
+            'X-imgix-plugin: magento/v'.$this->getModulePackageVersion()
         ];
         /* Create curl factory */
         $httpAdapter = $this->curlFactory->create();
@@ -254,7 +266,8 @@ class Data extends AbstractHelper
         $setHeader = [
             'Accept: application/vnd.api+json',
             'Authorization: Bearer '.$this->getSecureApiKey(),
-            'Content-Type: application/vnd.api+json'
+            'Content-Type: application/vnd.api+json',
+            'X-imgix-plugin: magento/v'.$this->getModulePackageVersion()
         ];
         /* Create curl factory */
         $httpAdapter = $this->curlFactory->create();
@@ -318,7 +331,8 @@ class Data extends AbstractHelper
         $setHeader = [
             'Accept: application/vnd.api+json',
             'Authorization: Bearer '.$this->getSecureApiKey(),
-            'Content-Type: application/vnd.api+json'
+            'Content-Type: application/vnd.api+json',
+            'X-imgix-plugin: magento/v'.$this->getModulePackageVersion()
         ];
         /* Create curl factory */
         $httpAdapter = $this->curlFactory->create();
@@ -371,7 +385,8 @@ class Data extends AbstractHelper
         $setHeader = [
             'Accept: application/vnd.api+json',
             'Authorization: Bearer '.$apiKey,
-            'Content-Type: application/vnd.api+json'
+            'Content-Type: application/vnd.api+json',
+            'X-imgix-plugin: magento/v'.$this->getModulePackageVersion()
         ];
         /* Create curl factory */
         $httpAdapter = $this->curlFactory->create();
@@ -462,5 +477,23 @@ class Data extends AbstractHelper
             }
         }
         return $srcset;
+    }
+
+    /**
+     * Get module composer version
+     *
+     * @return \Magento\Framework\Phrase|string|void
+     */
+    public function getModulePackageVersion()
+    {
+        $path = $this->componentRegistrar->getPath(
+            \Magento\Framework\Component\ComponentRegistrar::MODULE,
+            "Imgix_Magento"
+        );
+        $directoryRead = $this->readFactory->create($path);
+        $composerJsonData = $directoryRead->readFile('composer.json');
+        $data = json_decode($composerJsonData);
+
+        return !empty($data->version) ? $data->version : '';
     }
 }
