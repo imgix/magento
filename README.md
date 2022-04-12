@@ -44,7 +44,7 @@ php bin/magento cache:flush
 
 # Configuration
 
-Upon installation of the imgix extension, users will need to configure the extension with an imgix API key and parameter presets. From the storefront’s admin panel, select the **Stores** tab and select **Configuration** under the Settings section. 
+Upon installation of the imgix extension, users will need to configure the extension with an imgix API key and parameter presets. From the storefront’s admin panel, select the **Stores** tab and select **Configuration** under the Settings section.
 
 ![Initial configuration](https://assets.imgix.net/sdk/magento/01-configuration.png?pad=40&w=1520&mask-bg=E8F0F4&mask=corners&corner-radius=12&bg=E8F0F4&auto=compress,format)
 
