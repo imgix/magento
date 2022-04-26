@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="AdminEnableImgixModule">
+        <data key="path">imgix/settings/enabled</data>
+        <data key="scope_id">0</data>
+        <data key="value">1</data>
+    </entity>
+    <entity name="AdminDisableImgixModule">
+        <data key="path">imgix/settings/enabled</data>
+        <data key="scope_id">0</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="AdminSetImgixAPIKey">
+        <data key="path">imgix/settings/imgix_api_key</data>
+        <data key="value">ak_0ff7e44b2d5c876c2a693f9d83ba04549ee515af49bdc256f41344e55eadb709</data>
+        <data key="scope_id">0</data>
+    </entity>
+    <entity name="AdminResetImgixAPIKey">
+        <data key="path">imgix/settings/imgix_api_key</data>
+        <data key="scope_id">0</data>
+        <data key="value"> </data>
+    </entity>
+    <entity name="AdminSetWrongImgixAPIKey">
+        <data key="path">imgix/settings/imgix_api_key</data>
+        <data key="value">ak_0ff7e44b2d5c876c2a693f9d83ba04549ee515af49bdc256f41344e55eadb709ss54</data>
+        <data key="scope_id">0</data>
+    </entity>
+    <entity name="AdminSetDefaultImageOptions">
+        <data key="path">imgix/settings/default_options</data>
+        <data key="value">w=700&amp;auto=format</data>
+        <data key="scope_id">0</data>
+    </entity>
+    <entity name="AdminResetDefaultImageOptions">
+        <data key="path">imgix/settings/default_options</data>
+        <data key="scope_id">0</data>
+        <data key="value"> </data>
+    </entity>
+    <entity name="AdminAddImgixSmallImageOptions">
+        <data key="path">imgix/settings/small_options</data>
+        <data key="scope_id">0</data>
+        <data key="value">w=500&amp;auto=format</data>
+    </entity>
+    <entity name="AdminResetSmallImageOptions">
+        <data key="path">imgix/settings/small_options</data>
+        <data key="scope_id">0</data>
+        <data key="value"> </data>
+    </entity>
+    <entity name="AdminAddImgixThumbnailImageOptions">
+        <data key="path">imgix/settings/thumbnail_options</data>
+        <data key="scope_id">0</data>
+        <data key="value">w=100&amp;auto=format</data>
+    </entity>
+    <entity name="AdminResetThumbnailImageOptions">
+        <data key="path">imgix/settings/thumbnail_options</data>
+        <data key="scope_id">0</data>
+        <data key="value"> </data>
+    </entity>
+</entities>

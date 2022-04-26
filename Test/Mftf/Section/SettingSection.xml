@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="SettingSection">
+        <element name="sectionHeader" type="text" selector="#imgix_settings-head"/>
+        <element name="enabled" type="select" selector="#imgix_settings_enabled"/>
+        <element name="imgixApiKey" type="input" selector="#imgix_settings_imgix_api_key"/>
+        <element name="defaultOptions" type="input" selector="#imgix_settings_default_options"/>
+        <element name="smallOptions" type="input" selector="#imgix_settings_small_options"/>
+        <element name="thumbnailOptions" type="input" selector="#imgix_settings_thumbnail_options"/>
+    </section>
+</sections>
