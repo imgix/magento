@@ -115,7 +115,7 @@ class ImageProvider extends \Magento\Checkout\Model\Cart\ImageProvider
         $productId = $cartItem->getProductId();
         $product = $this->product->load($productId);
         
-        if ($this->helperData->isEnabled() && strpos($product->getThumbnail(), 'imgix') !== false) {
+        if ($this->helperData->isEnabled() && strpos((string) $product->getThumbnail(), 'imgix') !== false) {
             $smallImage = $this->helperData->getSmallImageOptions();
             $imageData = [
                 'src' => $product->getThumbnail().'?'.$smallImage,

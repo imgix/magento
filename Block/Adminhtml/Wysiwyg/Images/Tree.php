@@ -58,9 +58,11 @@ class Tree extends \Magento\Backend\Block\Template
     public function getImgixImageSources()
     {
         $sources = [];
-        $sources = $this->helperData->getEnabledImgixSources();
-        if (isset($sources['errors'])) {
-            return $sources = [];
+        if ($this->isImgixEnabled() == 1) {
+            $sources = $this->helperData->getEnabledImgixSources();
+            if (isset($sources['errors'])) {
+                return $sources = [];
+            }
         }
         return $sources;
     }
@@ -83,5 +85,15 @@ class Tree extends \Magento\Backend\Block\Template
     public function getImgixImageUrl()
     {
         return $this->urlBuilder->getUrl('imgixadmin/wysiwyg/imgiximage');
+    }
+    
+    /**
+     * Check module is enable
+     *
+     * @return array
+     */
+    public function isImgixEnabled()
+    {
+        return $this->helperData->isEnabled();
     }
 }

@@ -62,7 +62,7 @@ class Thumbnail extends Column
             foreach ($dataSource['data']['items'] as & $item) {
                 $product = new \Magento\Framework\DataObject($item);
                 $imageUrl = $product->getThumbnail();
-                if (strpos($imageUrl, 'imgix') !== false) {
+                if (strpos((string) $imageUrl, 'imgix') !== false) {
                     $thumbnailOptions = null;
                     $thumbnailOptions = $this->imgixHelper->getThumbnailImageOptions();
                     if (!empty($thumbnailOptions)) {

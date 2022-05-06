@@ -32,23 +32,20 @@
 
 //  search box
 .imgix-search-keyword {
-    max-width: 310px;
     margin-right: 20px;
+    max-width: 310px;
 }
 
 .imgix-nav {
-    #source-selector-dropdown {
-        &.source-selector-dropdown {
-            max-height: 400px;
-            overflow-y: auto;
-        }
+    .source-selector-dropdown {
+        max-height: 400px;
+        overflow-y: auto;
     }
 }
 
 
 //  Image gallery popup
 .new-imgix-image,
-#new-imgix-image,
 .imgix-modal-dialog-message {
     background-color: @color-lightdarkblue;
     border: 1px solid @color-lightred;
@@ -193,11 +190,11 @@
         border-radius: 3px;
         color: @color-white;
         display: inline-block;
+        font-family: 'Roboto';
         font-size: 1.5rem;
+        font-weight: 500;
         line-height: 18px;
         padding: 10px 15px 10px 35px;
-        font-family: 'Roboto';
-        font-weight: 500;
     }
 }
 

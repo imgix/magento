@@ -450,11 +450,11 @@ class Data extends AbstractHelper
     public function createSrcset($defaultOptions, $url)
     {
         $srcset = null;
-        if (strpos($url, 'imgix.net') !== false && $this->isEnabled()) {
+        if (strpos((string) $url, 'imgix.net') !== false && $this->isEnabled()) {
             // Remove https:// from url
-            $imgix_subdomain = substr($url, 8, strrpos($url, 'imgix.net/')+1);
+            $imgix_subdomain = substr($url, 8, strrpos((string) $url, 'imgix.net/')+1);
        
-            $origin_path = substr($url, strpos($url, "imgix.net/") + 9);
+            $origin_path = substr((string) $url, strpos((string) $url, "imgix.net/") + 9);
        
             $builder = new UrlBuilder($imgix_subdomain, true, "", false);
 

@@ -107,7 +107,7 @@ class Content extends \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Galle
                     $image['size'] = 0;
                     $this->_logger->warning($e);
                 }
-                if (strpos($image['file'], 'imgix') !== false) {
+                if (strpos((string) $image['file'], 'imgix') !== false) {
                     $image['url'] = $image['file'];
                 }
             }

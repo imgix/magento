@@ -65,9 +65,9 @@ class Imgiximage extends Action implements HttpPostActionInterface, HttpGetActio
 
         $apiKey = $this->helperData->getSecureApiKey();
         $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
-        if ($apiKeyValidation['authorized'] == 1) {
-            $isEnable = $this->helperData->isEnabled();
-            if ($isEnable == 1) {
+        $isEnable = $this->helperData->isEnabled();
+        if ($isEnable == 1) {
+            if ($apiKeyValidation['authorized'] == 1) {
                 // if sourceId is 0
                 if ($sourceId == 0) {
                     $datasaved  = false;
@@ -125,7 +125,7 @@ class Imgiximage extends Action implements HttpPostActionInterface, HttpGetActio
                         
                         // Generate id
                         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                        $charactersLength = strlen($characters);
+                        $charactersLength = strlen((string) $characters);
                         $id = '';
                         
                         $fileInfo = $this->fileSystemIo->getPathInfo($filename);
@@ -167,13 +167,12 @@ class Imgiximage extends Action implements HttpPostActionInterface, HttpGetActio
                     "html" => $html
                 ];
                 return $this->jsonResponse($data);
-            } else {
+
+            } elseif ($apiKeyValidation['authorized'] == 0) {
                 $datasaved  = false;
                 $isNoImages = true;
                 $isError = true;
-                $errorMessage = "<div class ='message message-error error'>
-                                    Please enable imgix module from system configuration.
-                                </div>";
+                $errorMessage = "<div class ='message message-error error'>".$apiKeyValidation['message']."</div>";
                 $html .= '<div class="empty"></div>';
                 $data = [
                     "hasMore" => $hasMore,
@@ -187,11 +186,13 @@ class Imgiximage extends Action implements HttpPostActionInterface, HttpGetActio
                 ];
                 return $this->jsonResponse($data);
             }
-        } elseif ($apiKeyValidation['authorized'] == 0) {
+        } else {
             $datasaved  = false;
             $isNoImages = true;
             $isError = true;
-            $errorMessage = "<div class ='message message-error error'>".$apiKeyValidation['message']."</div>";
+            $errorMessage = "<div class ='message message-error error'>
+                                Please enable imgix module from system configuration.
+                            </div>";
             $html .= '<div class="empty"></div>';
             $data = [
                 "hasMore" => $hasMore,

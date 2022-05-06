@@ -142,7 +142,7 @@ class CreateHandler extends \Magento\Catalog\Model\Product\Gallery\CreateHandler
             return $product;
         }
 
-        if (!is_array($value['images']) && strlen($value['images']) > 0) {
+        if (!is_array($value['images']) && strlen((string) $value['images']) > 0) {
             $value['images'] = $this->jsonHelper->jsonDecode($value['images']);
         }
 
@@ -161,7 +161,7 @@ class CreateHandler extends \Magento\Catalog\Model\Product\Gallery\CreateHandler
                 if (!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
                 } elseif (empty($image['value_id']) || !empty($image['recreate'])) {
-                    if (strpos($image['file'], 'imgix') !== false) {
+                    if (strpos((string) $image['file'], 'imgix') !== false) {
                         $image['new_file'] = $image['file'];
                         $newImages[$image['file']] = $image;
                     } else {

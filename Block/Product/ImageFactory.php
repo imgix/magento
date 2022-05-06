@@ -163,15 +163,15 @@ class ImageFactory extends \Magento\Catalog\Block\Product\ImageFactory
             );
         }
         $attributes = $attributes === null ? [] : $attributes;
-        if (strpos($originalFilePath, 'imgix') !== false) {
+        if (strpos((string) $originalFilePath, 'imgix') !== false) {
             $smallImage = $this->helperData->getSmallImageOptions();
 
             $url = $originalFilePath;
             
             // Remove https:// from url
-            $imgix_subdomain = substr($url, 8, strrpos($url, 'imgix.net/')+1);
+            $imgix_subdomain = substr($url, 8, strrpos((string) $url, 'imgix.net/')+1);
         
-            $origin_path = substr($url, strpos($url, "imgix.net/") + 9);
+            $origin_path = substr((string) $url, strpos((string) $url, "imgix.net/") + 9);
         
             $builder = new UrlBuilder($imgix_subdomain, true, "", false);
 

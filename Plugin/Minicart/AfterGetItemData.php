@@ -45,7 +45,7 @@ class AfterGetItemData
         
         $product = $this->productData->getById($result['product_id']);
         try {
-            if (strpos($product->getThumbnail(), 'imgix') !== false) {
+            if (strpos((string) $product->getThumbnail(), 'imgix') !== false) {
                 if ($result['product_id'] > 0) {
                     $thumbnailImage = $this->helperData->getThumbnailImageOptions();
                     $result['product_image']['src'] = $product->getThumbnail().'?'.$thumbnailImage;

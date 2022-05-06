@@ -1,12 +1,10 @@
 <?php
 
 // phpcs:disable PHPCompatibility.Miscellaneous.RemovedAlternativePHPTags.MaybeASPOpenTagFound
-/**
- * @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content
- * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
- */
-$elementNameEscaped = $block->escapeHtmlAttr($block->getElement()->getName()) . '[images]';
-$formNameEscaped = $block->escapeHtmlAttr($block->getFormName());
+/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+$elementName = $block->getElement()->getName() . '[images]';
+$formName = $block->getFormName();
 
 /** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
 $jsonHelper = $block->getData('jsonHelper');
@@ -35,13 +33,6 @@ $jsonHelper = $block->getData('jsonHelper');
     </div>
 </div>
 
-
-<?php
-/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
-$element = $block->getElement();
-$elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
-    'toggleValueElements(this, this.parentNode.parentNode.parentNode)';
-?>
 <div id="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>"
      class="gallery"
      data-mage-init='{"openVideoModal":{},"openImgixModal":{}}'
@@ -62,7 +53,7 @@ $elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
     <?php endif; ?>
     <?php foreach ($block->getImageTypes() as $typeData): ?>
         <input name="<?= $block->escapeHtmlAttr($typeData['name']) ?>"
-               data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
+               data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
                class="image-<?= $block->escapeHtmlAttr($typeData['code']) ?>"
                type="hidden"
                value="<?= $block->escapeHtmlAttr($typeData['value']) ?>"/>
@@ -73,65 +64,65 @@ $elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
                 <% if (data.video_url) { %>video-item<% } %>"
              data-role="image">
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][position]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][position]"
                    value="<%- data.position %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
                    class="position"/>
             <% if (data.media_type !== 'external-video') {%>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][media_type]"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][media_type]"
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
                    value="image"/>
             <% } else { %>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][media_type]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][media_type]"
                    value="<%- data.media_type %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <% } %>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_provider]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_provider]"
                    value="<%- data.video_provider %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][file]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][file]"
                    value="<%- data.file %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][value_id]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][value_id]"
                    value="<%- data.value_id %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][label]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][label]"
                    value="<%- data.label %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][disabled]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][disabled]"
                    value="<%- data.disabled %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][removed]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][removed]"
                    value="" class="is-removed"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_url]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_url]"
                    value="<%- data.video_url %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_title]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_title]"
                    value="<%- data.video_title %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_description]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_description]"
                    value="<%- data.video_description %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_metadata]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_metadata]"
                    value="<%- data.video_metadata %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
             <input type="hidden"
-                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][role]"
+                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][role]"
                    value="<%- data.video_description %>"
-                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
+                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
 
             <div class="product-image-wrapper">
                 <img class="product-image"
@@ -214,7 +205,7 @@ $elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
                             <textarea data-role="image-description"
                                       rows="3"
                                       class="admin__control-textarea"
-                                      name="<?= /* @noEscape */ $elementNameEscaped
+                                      name="<?= $block->escapeHtmlAttr($elementName)
                                         ?>[<%- data.file_id %>][label]"><%- data.label %></textarea>
                     </div>
                 </div>
@@ -232,7 +223,7 @@ $elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
                                     <label>
                                         <input class="image-type"
                                                data-role="type-selector"
-                                               data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
+                                               data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
                                                type="checkbox"
                                                value="<?= $block->escapeHtmlAttr($attribute->getAttributeCode()) ?>"
                                         />
@@ -269,10 +260,10 @@ $elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
                             <input type="checkbox"
                                    id="hide-from-product-page"
                                    data-role="visibility-trigger"
-                                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
+                                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
                                    value="1"
                                    class="admin__control-checkbox"
-                                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][disabled]"
+                                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][disabled]"
                             <% if (data.disabled == 1) { %>checked="checked"<% } %> />
 
                             <label for="hide-from-product-page" class="admin__field-label">

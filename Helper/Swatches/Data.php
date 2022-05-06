@@ -397,7 +397,7 @@ class Data extends \Magento\Swatches\Helper\Data
     {
         $large = $medium = $small = null;
         $imageUrl = $imageFile;
-        if (strpos($imageUrl, 'imgix') !== false) {
+        if (strpos((string) $imageUrl, 'imgix') !== false) {
             $smallImageOptions = $this->imgixHelper->getSmallImageOptions();
             $thumbnailImageOptions = $this->imgixHelper->getThumbnailImageOptions();
             
