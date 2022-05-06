@@ -58,7 +58,7 @@ class Data extends MainHelper
         if ($images instanceof \Magento\Framework\Data\Collection) {
             /** @var $image Image */
             foreach ($images as $image) {
-                if (strpos($image->getFile(), 'imgix') !== false) {
+                if (strpos((string) $image->getFile(), 'imgix') !== false) {
 
                     $defaultImageOptions = $this->imgixHelper->getDefaultImageOptions();
                     $thumbnailImageOptions = $this->imgixHelper->getThumbnailImageOptions();

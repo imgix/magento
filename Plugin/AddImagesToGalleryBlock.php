@@ -63,7 +63,7 @@ class AddImagesToGalleryBlock
             $imagesCollection = $this->dataCollectionFactory->create();
             $productName = $product->getName();
             foreach ($images as $item) {
-                if (strpos($item->getFile(), 'imgix') !== false) {
+                if (strpos((string) $item->getFile(), 'imgix') !== false) {
                     $image = [
                         'file' => $item->getFile(),
                         'media_type' => $item->getMediaType(),
@@ -116,14 +116,14 @@ class AddImagesToGalleryBlock
             $imgImageSrcset = $imgImage;
 
             if (preg_match('/[?]/', $itemImage->thumb)) {
-                $thumbSourceDomain = strstr($itemImage->thumb, '?', true);
+                $thumbSourceDomain = strstr((string) $itemImage->thumb, '?', true);
             } else {
                 $thumbSourceDomain = $itemImage->thumb;
             }
             $thumbImageSrcset = $this->helperData->createSrcset($thumbnailImageOptions, $thumbSourceDomain);
 
             if (preg_match('/[?]/', $itemImage->img)) {
-                $sourceDomain = strstr($itemImage->img, '?', true);
+                $sourceDomain = strstr((string) $itemImage->img, '?', true);
             } else {
                 $sourceDomain = $itemImage->img;
             }

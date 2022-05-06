@@ -65,9 +65,10 @@ class Post extends Action implements HttpPostActionInterface, HttpGetActionInter
 
         $apiKey = $this->helperData->getSecureApiKey();
         $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
-        if ($apiKeyValidation['authorized'] == 1) {
-            $isEnable = $this->helperData->isEnabled();
-            if ($isEnable == 1) {
+        $isEnable = $this->helperData->isEnabled();
+        
+        if ($isEnable == 1) {
+            if ($apiKeyValidation['authorized'] == 1) {
                 // if sourceId is 0
                 if ($sourceId == 0) {
                     $datasaved = false;
@@ -138,22 +139,20 @@ class Post extends Action implements HttpPostActionInterface, HttpGetActionInter
                     $html .= '<div class="empty">'. __("The source contains no images.").'</div>';
                 }
                 $data = [
-                        "hasMore" => $hasMore,
-                        "next" => $next,
-                        "isNoImages" => $isNoImages,
-                        "current" => $current,
-                        "isError" => $isError,
-                        "errorMessage" => $errorMessage,
-                        "success" => $datasaved,
-                        "html" => $html
-                    ];
-            } else {
+                    "hasMore" => $hasMore,
+                    "next" => $next,
+                    "isNoImages" => $isNoImages,
+                    "current" => $current,
+                    "isError" => $isError,
+                    "errorMessage" => $errorMessage,
+                    "success" => $datasaved,
+                    "html" => $html
+                ];
+            } elseif ($apiKeyValidation['authorized'] == 0) {
                 $datasaved  = false;
                 $isNoImages = true;
                 $isError = true;
-                $errorMessage = "<div class ='message message-error error'>
-                                    Please enable imgix module from system configuration.
-                                </div>";
+                $errorMessage = "<div class ='message message-error error'>".$apiKeyValidation['message']."</div>";
                 $html .= '<div class="empty"></div>';
                 $data = [
                     "hasMore" => $hasMore,
@@ -166,11 +165,13 @@ class Post extends Action implements HttpPostActionInterface, HttpGetActionInter
                     "html" => $html
                 ];
             }
-        } elseif ($apiKeyValidation['authorized'] == 0) {
+        } else {
             $datasaved  = false;
             $isNoImages = true;
             $isError = true;
-            $errorMessage = "<div class ='message message-error error'>".$apiKeyValidation['message']."</div>";
+            $errorMessage = "<div class ='message message-error error'>
+                                Please enable imgix module from system configuration.
+                            </div>";
             $html .= '<div class="empty"></div>';
             $data = [
                 "hasMore" => $hasMore,

@@ -291,7 +291,7 @@ class AssociatedProducts extends MageAssociatedProducts
                     
                     $thumbnailImageUrl = null;
                     $imageUrl = $product->getThumbnail();
-                    if (strpos($imageUrl, 'imgix') !== false) {
+                    if (strpos((string) $imageUrl, 'imgix') !== false) {
                         $thumbnailImageUrl = $imageUrl;
                         $thumbnailOptions = null;
                         $thumbnailOptions = $this->imgixHelper->getThumbnailImageOptions();

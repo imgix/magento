@@ -140,13 +140,13 @@ class NewImgixImage extends \Magento\Backend\Block\Widget\Form\Generic
     public function getImgixImageSources()
     {
         $sources = [];
-        $sources = $this->helperData->getEnabledImgixSources();
-       
-        if (isset($sources['errors'])) {
-            $this->messageManager->addErrorMessage($sources['errors']);
-            return $sources = [];
+        if ($this->isImgixEnabled() == 1) {
+            $sources = $this->helperData->getEnabledImgixSources();
+            if (isset($sources['errors'])) {
+                $this->messageManager->addErrorMessage($sources['errors']);
+                return $sources = [];
+            }
         }
-
         return $sources;
     }
     
