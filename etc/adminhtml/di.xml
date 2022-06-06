@@ -21,4 +21,8 @@
     			type="Imgix\Magento\Model\Product\Gallery\CreateHandler"/>
     <preference for="Magento\Catalog\Model\Product\Gallery\UpdateHandler"
                	type="Imgix\Magento\Model\Product\Gallery\UpdateHandler" />
+    <preference for="Magento\CatalogStaging\Model\Product\Gallery\CreateHandler"
+               	type="Imgix\Magento\Model\Product\Gallery\CreateHandler" />
+    <preference for="Magento\CatalogStaging\Model\Product\Gallery\UpdateHandler"
+               	type="Imgix\Magento\Model\Product\Gallery\UpdateHandler" />
 </config>

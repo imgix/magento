@@ -100,8 +100,10 @@ class Content extends \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Galle
                     );
                 }
                 try {
-                    $fileHandler = $mediaDir->stat($this->_mediaConfig->getMediaPath($image['file']));
-                    $image['size'] = $fileHandler['size'];
+                    if (strpos((string) $image['file'], 'imgix') === false) {
+                        $fileHandler = $mediaDir->stat($this->_mediaConfig->getMediaPath($image['file']));
+                        $image['size'] = $fileHandler['size'];
+                    }
                 } catch (FileSystemException $e) {
                     $image['url'] = $this->getImageHelper()->getDefaultPlaceholderUrl('small_image');
                     $image['size'] = 0;
