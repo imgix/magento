@@ -101,7 +101,7 @@
          * @returns {*}
          * @private
          */
-        __prepareFilename: function (name) {
+         __prepareFilename: function (name) {
             var tmppost = '.tmp';
 
             if (!name) {
@@ -121,7 +121,7 @@
          * @param {Object} imageData
          * @private
          */
-        _setImage: function (file, imageData) {
+         _setImage: function (file, imageData) {
             file = this.__prepareFilename(file);
             this._images[file] = imageData;
             this._gallery.trigger('addItem', imageData);
@@ -136,7 +136,7 @@
          * @returns {*}
          * @private
          */
-        _getImage: function (file) {
+         _getImage: function (file) {
             file = this.__prepareFilename(file);
 
             return this._images[file];
@@ -149,7 +149,7 @@
          * @param {Object} imageData
          * @private
          */
-        _replaceImage: function (oldFile, newFile, imageData) {
+         _replaceImage: function (oldFile, newFile, imageData) {
             var tmpNewFile = newFile,
                 tmpOldImage,
                 newImageId,
@@ -231,10 +231,10 @@
          * @param {Object} imageData
          * @private
          */
-        _onSetImage: function (event, imageData) {
+         _onSetImage: function (event, imageData) {
             this.saveImageRoles(imageData);
         },
-
+        
         /**
          *
          * Wrap _uploadFile
@@ -245,10 +245,10 @@
          */
         _uploadImage: function (file, oldFile, callback) {
             var url = this.options.saveVideoUrl,
-                data = {
-                    files: file,
-                    url: url
-                };
+            data = {
+                files: file,
+                url: url
+            };
 
             this._blockActionButtons(true, true);
             this._uploadFile(data, $.proxy(function (result) {
@@ -298,6 +298,40 @@
         },
 
         /**
+         * File uploader
+         * @private
+         */
+         _uploadFile: function (data, callback) {
+            var fu = this.element.find(this._videoPreviewInputSelector),
+                tmpInput = document.createElement('input'),
+                fileUploader = null;
+
+            $(tmpInput).attr({
+                'name': fu.attr('name'),
+                'value': fu.val(),
+                'type': 'file',
+                'data-ui-ud': fu.attr('data-ui-ud')
+            }).css('display', 'none');
+            fu.parent().append(tmpInput);
+            fileUploader = $(tmpInput).fileupload();
+            fileUploader.fileupload('send', data).done(function (result, textStatus, jqXHR) {
+                tmpInput.remove();
+                callback.call(null, result, textStatus, jqXHR);
+            });
+        },
+
+        /**
+         * Update style
+         * @param {String} url
+         * @private
+         */
+         _addVideoClass: function (url) {
+            var classVideo = 'video-item';
+
+            this._gallery.find('img[src="' + url + '"]').addClass(classVideo);
+        },
+
+        /**
          * Build widget
          * @private
          */
@@ -325,6 +359,9 @@
             this._gallery.on('openDialog', $.proxy(this._onOpenDialog, this));
             this._bind();
             widget = this;
+            uploader = this.element.find(this._videoPreviewInputSelector);
+            uploader.on('change', this._onImageInputChange.bind(this));
+            uploader.attr('accept', this._imageTypes.join(','));
 
             this.element.modal({
                 type: 'slide',
@@ -405,15 +442,6 @@
         },
 
         /**
-         * Delegates call to producwt gallery to update video visibility.
-         *
-         * @param {Object} imageData
-         */
-        _updateVisibility: function () {
-            this._gallery.trigger('updateVisibility');
-        },
-
-        /**
          * @param {String} status
          * @private
          */
@@ -489,12 +517,131 @@
         },
 
         /**
+         * Delegates call to producwt gallery to update video visibility.
+         *
+         * @param {Object} imageData
+         */
+         _updateVisibility: function () {
+            this._gallery.trigger('updateVisibility', {
+                disabled: imageData.disabled,
+                imageData: imageData
+            });
+        },
+
+        /**
+         * Delegates call to product gallery to update video title.
+         *
+         * @param {Object} imageData
+         */
+         _updateImageTitle: function (imageData) {
+            this._gallery.trigger('updateImageTitle', {
+                imageData: imageData
+            });
+        },
+        
+        /**
+         * Fired when clicked on delete
+         * @private
+         */
+         _onDelete: function () {
+            var filename = this.element.find(this._videoImageFilenameselector).val();
+
+            this._removeImage(filename);
+            this.close();
+        },
+        
+        /**
          * Fired when clicked on cancel
          * @private
          */
         _onCancel: function () {
             $('.assets').empty();
             this.close();
+        },
+
+        /**
+         *  Image file input handler
+         * @private
+         */
+         _onImageInputChange: function () {
+            var jFile = this.element.find(this._videoPreviewInputSelector),
+                file = jFile[0],
+                val = jFile.val(),
+                prev = this._getPreviewImage(),
+                ext = '.' + val.split('.').pop();
+
+            if (!val) {
+                return;
+            }
+            ext = ext ? ext.toLowerCase() : '';
+
+            if (
+                ext.length < 2 ||
+                this._imageTypes.indexOf(ext.toLowerCase()) === -1 || !file.files || !file.files.length
+            ) {
+                prev.remove();
+                this._previewImage = null;
+                jFile.val('');
+
+                return;
+            } // end if
+            file = file.files[0];
+            this._tempPreviewImageData = null;
+            this._onPreview(null, file, true);
+        },
+
+        /**
+         * Change Preview
+         * @param {String} error
+         * @param {String} src
+         * @param {Boolean} local
+         * @private
+         */
+        _onPreview: function (error, src, local) {
+            var img, renderImage;
+
+            img = this._getPreviewImage();
+
+            /**
+             * Callback
+             * @param {String} source
+             */
+            renderImage = function (source) {
+                img.attr({
+                    'src': source
+                }).show();
+            };
+
+            if (error) {
+                return;
+            }
+
+            if (!local) {
+                renderImage(src);
+            } else {
+                this._readPreviewLocal(src, renderImage);
+            }
+        },
+
+        /**
+         *
+         * Return preview image imstance
+         * @returns {null}
+         * @private
+         */
+        _getPreviewImage: function () {
+
+            if (!this._previewImage) {
+                this._previewImage = $(document.createElement('img')).css({
+                    'width': '100%',
+                    'display': 'none',
+                    'src': ''
+                });
+                $(this._previewImage).insertAfter(this.element.find(this._videoPreviewImagePointer));
+                $(this._previewImage).attr('data-role', 'video_preview_image');
+            }
+
+            return this._previewImage;
         },
 
         /**
@@ -524,8 +671,8 @@
             newVideoForm = this.element.find(this._videoFormSelector);
 
             $(newVideoForm).find('input[type="hidden"][name!="form_key"]').val('');
-            this._gallery.find('input[name*="' + this.element.find(
-                    this._itemIdSelector).val() + '"]'
+            this._gallery.find(
+                'input[name*="' + this.element.find(this._itemIdSelector).val() + '"]'
             ).parent().removeClass('active');
 
             try {
@@ -569,7 +716,7 @@
                             self._videoFormSelector + ' input[value="' + imageType + '"]'
                         );
 
-                    self._changeRole(imageType, imageCheckbox.attr('checked'), imageData);
+                    self._changeRole(imageType, imageCheckbox.prop('checked'), imageData);
                 });
             }
         },

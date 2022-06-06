@@ -1,14 +1,35 @@
 define([
     'jquery',
     'productGallery',
+    'mage/template',
     'jquery/ui',
     'Magento_Ui/js/modal/modal',
     'mage/translate',
     'mage/backend/tree-suggest',
     'mage/backend/validation',
-    'newImgixDialog'
-], function ($, productGallery) {
+    'newImgixDialog',
+    'Magento_Catalog/js/product-gallery'
+], function ($, productGallery,mageTemplate) {
     'use strict';
+
+    /**
+     * Formats incoming bytes value to a readable format.
+     *
+     * @param {Number} bytes
+     * @returns {String}
+     */
+     function bytesToSize(bytes) {
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'],
+            i;
+
+        if (bytes === 0) {
+            return '0 Byte';
+        }
+
+        i = window.parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+
+        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    }
 
     $.widget('mage.productGallery', productGallery, {
 
@@ -19,7 +40,6 @@ define([
         _bind: function () {
             var events = {},
                 itemId;
-
             /**
              * Add item_id value to opened modal
              * @param {Object} event
@@ -39,12 +59,90 @@ define([
          * @private
          */
         _create: function () {
-            window.reloadImages = false;
+            this.options.types = this.options.types || this.element.data('types');
+            this.options.images = this.options.images || this.element.data('images');
+            this.options.parentComponent = this.options.parentComponent || this.element.data('parent-component');
+
+            this.imgTmpl = mageTemplate(this.element.find(this.options.template).html().trim());
+
+            $.each(this.options.images, $.proxy(function (index, imageData) {
+                this._addItem(imageData);
+            }, this));
             this._super();
             this.imgixDialog = this.element.find('#new-imgix-image');
             this.imgixDialog.mage('newImgixDialog', this.imgixDialog.data('modalInfo'));
         },
 
+        /**
+         * Add image items
+         */
+        _addItem: function (imageData) {
+            var element,
+                imgElement,
+                lastElement,
+                count,
+                position;
+
+            if (this._isInitializingItems) {
+                count = this._initializedItemCount++;
+                lastElement = this._lastInitializedElement;
+            } else {
+                count = this.element.find(this.options.imageSelector).length;
+                lastElement = this.element.find(this.options.imageSelector + ':last');
+            }
+
+            position = count + 1;
+
+            if (lastElement && lastElement.length === 1) {
+                position = parseInt(lastElement.data('imageData').position || count, 10) + 1;
+            }
+            imageData = $.extend({
+                'file_id': imageData['value_id'] ? imageData['value_id'] : Math.random().toString(33).substr(2, 18),
+                'disabled': imageData.disabled ? imageData.disabled : 0,
+                'position': position,
+                sizeLabel: bytesToSize(imageData.size)
+            }, imageData);
+
+            element = this.imgTmpl({
+                data: imageData
+            });
+
+            element = $(element).data('imageData', imageData);
+
+            if (count === 0) {
+                element.prependTo(this.element);
+            } else {
+                element.insertAfter(lastElement);
+            }
+
+            this._lastInitializedElement = element;
+
+            if (!this.options.initialized &&
+                this.options.images.length === 0 ||
+                this.options.initialized &&
+                this.element.find(this.options.imageSelector + ':not(.removed)').length === 1
+            ) {
+                this.setBase(imageData);
+            }
+
+            imgElement = element.find(this.options.imageElementSelector);
+
+            imgElement.on('load', this._updateImageDimesions.bind(this, element));
+
+            $.each(this.options.types, $.proxy(function (index, image) {
+                if (imageData.file === image.value) {
+                    this.element.trigger('setImageType', {
+                        type: image.code,
+                        imageData: imageData
+                    });
+                }
+            }, this));
+
+            if (!this._isInitializingItems) {
+                this._updateImagesRoles();
+                this._contentUpdated();
+            }
+        },
         /**
          * Open dialog for external video
          * @private

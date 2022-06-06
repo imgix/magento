@@ -1,10 +1,11 @@
 <?php
-
 // phpcs:disable PHPCompatibility.Miscellaneous.RemovedAlternativePHPTags.MaybeASPOpenTagFound
-/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
-/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
-$elementName = $block->getElement()->getName() . '[images]';
-$formName = $block->getFormName();
+/**
+ * @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+$elementNameEscaped = $block->escapeHtmlAttr($block->getElement()->getName()) . '[images]';
+$formNameEscaped = $block->escapeHtmlAttr($block->getFormName());
 
 /** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
 $jsonHelper = $block->getData('jsonHelper');
@@ -33,6 +34,12 @@ $jsonHelper = $block->getData('jsonHelper');
     </div>
 </div>
 
+<?php
+/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
+$element = $block->getElement();
+$elementToggleCode = $element->getToggleCode() ? $element->getToggleCode():
+    'toggleValueElements(this, this.parentNode.parentNode.parentNode)';
+?>
 <div id="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>"
      class="gallery"
      data-mage-init='{"openVideoModal":{},"openImgixModal":{}}'
@@ -53,76 +60,76 @@ $jsonHelper = $block->getData('jsonHelper');
     <?php endif; ?>
     <?php foreach ($block->getImageTypes() as $typeData): ?>
         <input name="<?= $block->escapeHtmlAttr($typeData['name']) ?>"
-               data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
+               data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
                class="image-<?= $block->escapeHtmlAttr($typeData['code']) ?>"
                type="hidden"
                value="<?= $block->escapeHtmlAttr($typeData['value']) ?>"/>
     <?php endforeach; ?>
     <script id="<?= $block->escapeHtmlAttr($block->getHtmlId()) ?>-template" data-template="image"
-            type="text/x-magento-template">
+            type="text/x-magento-template" class="hello">
         <div class="image item <% if (data.disabled == 1) { %>hidden-for-front<% } %>
                 <% if (data.video_url) { %>video-item<% } %>"
              data-role="image">
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][position]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][position]"
                    value="<%- data.position %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
                    class="position"/>
             <% if (data.media_type !== 'external-video') {%>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][media_type]"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][media_type]"
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
                    value="image"/>
             <% } else { %>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][media_type]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][media_type]"
                    value="<%- data.media_type %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <% } %>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_provider]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_provider]"
                    value="<%- data.video_provider %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][file]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][file]"
                    value="<%- data.file %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][value_id]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][value_id]"
                    value="<%- data.value_id %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][label]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][label]"
                    value="<%- data.label %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][disabled]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][disabled]"
                    value="<%- data.disabled %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][removed]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][removed]"
                    value="" class="is-removed"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_url]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_url]"
                    value="<%- data.video_url %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_title]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_title]"
                    value="<%- data.video_title %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_description]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_description]"
                    value="<%- data.video_description %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][video_metadata]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][video_metadata]"
                    value="<%- data.video_metadata %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
             <input type="hidden"
-                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][role]"
+                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][role]"
                    value="<%- data.video_description %>"
-                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"/>
+                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"/>
 
             <div class="product-image-wrapper">
                 <img class="product-image"
@@ -160,13 +167,13 @@ $jsonHelper = $block->getData('jsonHelper');
 
             <div class="item-description">
                 <% if (data.media_type !== 'external-video') {%>
-                    <div class="item-title" data-role="img-title"><%- data.label %></div>
-                    <div class="item-size">
-                        <span data-role="image-dimens"></span> 
-                        <% if (data.sizeLabel !='0 Byte' && data.sizeLabel !='NaN undefined') {%>
+                <div class="item-title" data-role="img-title"><%- data.label %></div>
+                <div class="item-size">
+                    <span data-role="image-dimens"></span>
+                    <% if (data.sizeLabel !='0 Byte' && data.sizeLabel !='NaN undefined') {%>
                         , <span data-role="image-size"><%- data.sizeLabel %></span>
-                        <% } %>
-                    </div>
+                    <% } %>
+                </div>
                 <% } else { %>
                 <div class="item-title" data-role="img-title"><%- data.video_title %></div>
                 <% } %>
@@ -205,7 +212,7 @@ $jsonHelper = $block->getData('jsonHelper');
                             <textarea data-role="image-description"
                                       rows="3"
                                       class="admin__control-textarea"
-                                      name="<?= $block->escapeHtmlAttr($elementName)
+                                      name="<?= /* @noEscape */ $elementNameEscaped
                                         ?>[<%- data.file_id %>][label]"><%- data.label %></textarea>
                     </div>
                 </div>
@@ -223,7 +230,7 @@ $jsonHelper = $block->getData('jsonHelper');
                                     <label>
                                         <input class="image-type"
                                                data-role="type-selector"
-                                               data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
+                                               data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
                                                type="checkbox"
                                                value="<?= $block->escapeHtmlAttr($attribute->getAttributeCode()) ?>"
                                         />
@@ -234,18 +241,15 @@ $jsonHelper = $block->getData('jsonHelper');
                         </ul>
                     </div>
                 </div>
-
-                <% if (data.sizeLabel !='0 Byte' && data.sizeLabel !='NaN undefined') {%>              
+                <% if (data.sizeLabel !='0 Byte' && data.sizeLabel !='NaN undefined') {%>
                     <div class="admin__field admin__field-inline field-image-size" data-role="size">
                         <label class="admin__field-label">
                             <span><?= $block->escapeHtml(__('Image Size')) ?></span>
                         </label>
-                        <div class="admin__field-value" data-message="<?= $block->escapeHtmlAttr(__('{size}')) ?>">
-
-                        </div>
+                        <div class="admin__field-value" data-message="<?= $block->escapeHtmlAttr(__('{size}')) ?>"></div>
                     </div>
                 <% } %>
-
+                
                 <div class="admin__field admin__field-inline field-image-resolution" data-role="resolution">
                     <label class="admin__field-label">
                         <span><?= $block->escapeHtml(__('Image Resolution')) ?></span>
@@ -260,10 +264,10 @@ $jsonHelper = $block->getData('jsonHelper');
                             <input type="checkbox"
                                    id="hide-from-product-page"
                                    data-role="visibility-trigger"
-                                   data-form-part="<?= $block->escapeHtmlAttr($formName) ?>"
+                                   data-form-part="<?= /* @noEscape */ $formNameEscaped ?>"
                                    value="1"
                                    class="admin__control-checkbox"
-                                   name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][disabled]"
+                                   name="<?= /* @noEscape */ $elementNameEscaped ?>[<%- data.file_id %>][disabled]"
                             <% if (data.disabled == 1) { %>checked="checked"<% } %> />
 
                             <label for="hide-from-product-page" class="admin__field-label">
