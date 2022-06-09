@@ -56,7 +56,7 @@ First, navigate to the [imgix dashboard](https://dashboard.imgix.com/api-keys) a
 
 ![API keys menu](https://assets.imgix.net/sdk/magento/02-api_key.png?pad=40&w=1520&mask-bg=E8F0F4&mask=corners&corner-radius=12&bg=E8F0F4&auto=compress,format)
 
-From this page, users can create an API key specifically for their Magento instance. Press the **Generate New Key** button, enter in the key name, and select the necessary permissions (Sources and Image Manager Browse). Once done, select the **Generate New API Key** button and copy the generated key.
+From this page, users can create an API key specifically for their Magento instance. Press the **Generate New Key** button, enter in the key name, and select the necessary permissions (Sources and Asset Manager Browse). Once done, select the **Generate New API Key** button and copy the generated key.
 
 ![Generate an API key](https://assets.imgix.net/sdk/magento/03-generate_api_key.png?pad=40&w=1520&mask-bg=E8F0F4&mask=corners&corner-radius=12&bg=E8F0F4&auto=compress,format)
 
