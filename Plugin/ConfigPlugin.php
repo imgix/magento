@@ -53,22 +53,16 @@ class ConfigPlugin
         Config $subject,
         \Closure $proceed
     ) {
-
         $data = $subject->getData();
-        
         if (isset($data['groups']['settings']['fields']['enabled']['value'])) {
             if ($data['groups']['settings']['fields']['enabled']['value'] == 0) {
                 return $proceed();
-            }
-        }
-        if (isset($data['groups']['settings']['fields']['enabled']['value'])) {
-            if ($data['groups']['settings']['fields']['enabled']['value'] == 1) {
-
+            } elseif ($data['groups']['settings']['fields']['enabled']['value'] == 1) {
                 if (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
                     $apiKey = $data['groups']['settings']['fields']['imgix_api_key']['value'];
-
+        
                     $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
-
+        
                     if ($apiKeyValidation['authorized']== 0) {
                         throw new \Magento\Framework\Exception\LocalizedException(__($apiKeyValidation['message']));
                     }
@@ -78,6 +72,8 @@ class ConfigPlugin
                     }
                 }
             }
+        } elseif (isset($data['groups'])) {
+            return $proceed();
         }
     }
 }
