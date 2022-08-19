@@ -60,9 +60,7 @@ class ConfigPlugin
             } elseif ($data['groups']['settings']['fields']['enabled']['value'] == 1) {
                 if (isset($data['groups']['settings']['fields']['imgix_api_key'])) {
                     $apiKey = $data['groups']['settings']['fields']['imgix_api_key']['value'];
-        
                     $apiKeyValidation = $this->helperData->getImgixApiKeyValidation($apiKey);
-        
                     if ($apiKeyValidation['authorized']== 0) {
                         throw new \Magento\Framework\Exception\LocalizedException(__($apiKeyValidation['message']));
                     }
