@@ -22,7 +22,6 @@
             <magentoCLI stepKey="runCacheFlush" command="cache:flush"/>
             <!-- Create default category -->
             <createData entity="_defaultCategory" stepKey="createPreReqCategory"/>
-            <!-- <magentoCLI command="config:set {{AdminEnableImgixModule.path}} {{AdminEnableImgixModule.value}}" stepKey="adminSetImgixEnabled"/> -->
         </before>
         <after>
             <!-- Delete data -->
@@ -36,8 +35,6 @@
             <actionGroup ref="AdminSaveConfigActionGroup" stepKey="resetSettingsAndSaveConfig"/>
             <!-- Admin logout -->
             <actionGroup ref="AdminLogoutActionGroup" stepKey="amOnLogoutPage"/>
-            <!-- imgix module disabled and remove default values using CLI-->
-            <!-- <magentoCLI command="config:set {{RemoveImgixAPIKey.path}} {{RemoveImgixAPIKey.value}}" stepKey="adminResetImgixApiKey"/> -->
         </after>
         <!-- Create simple product start -->
         <actionGroup ref="FillAdminSimpleProductFormWithImgixImageActionGroup" stepKey="fillProductFieldsInAdmin">
