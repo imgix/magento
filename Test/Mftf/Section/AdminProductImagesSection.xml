@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminProductImagesSection">
+        <element name="addImgixImage" type="button" selector="button[data-role=add-imgix-button]" timeout="75"/>
+        <element name="selectFirstImgixImage" type="text" selector=".imgix-gallery div[data-row=file].imgix-asset:first-of-type"/>
+        <element name="addImage" type="button" selector=".new-imgix-image .page-main-actions button.image-upload-button.action-primary"/>
+    </section>
+</sections>

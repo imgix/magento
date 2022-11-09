@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminPagebuiderImgixImageSection">
+        <element name="pagebuilderAddImgixImage" type="button" selector="//figure//div[@class='file-uploader-area']//label[text()='Add imgix Image']" timeout="75"/>
+        <element name="pagebuilderSelectFirstImgixImage" type="text" selector=".imgix-gallery div[data-row=file].imgix-asset:first-of-type" timeout="75"/>
+        <element name="pagebuilderAddImage" type="button" selector=".imgix-modal-dialog-message .page-main-actions button.save"/>
+        <element name="imgixWidth" type="input" selector="input[name=imgix_width]"/>
+        <element name="imgixHeight" type="input" selector="input[name=imgix_height]"/>
+        <element name="imgixFormat" type="input" selector="input[name=imgix_format]"/>
+        <element name="imgixAuto" type="input" selector="input[name=imgix_auto]"/>
+        <element name="imgixCrop" type="input" selector="input[name=imgix_crop]"/>
+    </section>
+</sections>

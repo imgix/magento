@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminImgixApiKeyAuthorizedTest">
+        <annotations>
+            <features value="System Configuration"/>
+            <stories value="imgix API key validation"/>
+            <title value="Admin imgix API key authorized"/>
+            <description value="Save API key in system configuration validation"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value=""/>
+            <group value="imgixImage"/>
+        </annotations>
+        <before>
+            <!-- Admin login -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginToAdminPanel"/>
+        </before>
+        <after>
+            <!-- Admin logout -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="amOnLogoutPage"/>
+        </after>
+        <!-- Open IMGIX system configuration section and save wrong API key -->
+        <actionGroup ref="NavigateToDefaultLayoutsImgixSettingWrongAPIKeyActionGroup" stepKey="navigateToImgixConfigurationPageSaveWrongApiKey"/>
+        <!-- Save system configuration with wrong API key-->
+        <actionGroup ref="AdminSaveConfigErrorActionGroup" stepKey="saveWrongDataToImgixSettingConfigurationSection"/>
+        <!-- Open IMGIX system configuration section and save values -->
+        <actionGroup ref="SaveCorrectDataToImgixSettingActionGroup" stepKey="saveCorrectDataToImgixSettingConfigurationSection"/>
+        <!-- Save system configuration with correct API key -->
+        <actionGroup ref="AdminSaveConfigActionGroup" stepKey="saveSettingsAndSaveConfig"/>
+        <!-- Reset Imgix Settings and save system configuration -->
+        <actionGroup ref="NavigateToDefaultLayoutsImgixSettingResetActionGroup" stepKey="navigateToImgixConfigurationPageResetSettings"/>
+        <!-- Save system configuration -->
+        <actionGroup ref="AdminSaveConfigActionGroup" stepKey="resetSettingsAndSaveConfig"/>
+    </test>
+</tests>
