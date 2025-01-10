@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="PageBuilderImgixImageProperty_ImgixWidth" type="pagebuilder_imgix_image_width_property">
+        <data key="name">imgix image configurations</data>
+        <data key="section">imgix_image_configuration</data>
+        <data key="fieldName">imgix_width</data>
+        <data key="value">300</data>
+    </entity>
+    <entity name="PageBuilderImgixImageProperty_ImgixHeight" type="pagebuilder_imgix_image_width_property">
+        <data key="name">imgix image configurations</data>
+        <data key="section">imgix_image_configuration</data>
+        <data key="fieldName">imgix_height</data>
+        <data key="value">300</data>
+    </entity>
+    <entity name="PageBuilderImgixImageProperty_ImgixFormat" type="pagebuilder_imgix_image_width_property">
+        <data key="name">imgix image configurations</data>
+        <data key="section">imgix_image_configuration</data>
+        <data key="fieldName">imgix_format</data>
+        <data key="value">blurhash</data>
+    </entity>
+    <entity name="PageBuilderImgixImageProperty_ImgixAuto" type="pagebuilder_imgix_image_width_property">
+        <data key="name">imgix image configurations</data>
+        <data key="section">imgix_image_configuration</data>
+        <data key="fieldName">imgix_auto</data>
+        <data key="value">format</data>
+    </entity>
+    <entity name="PageBuilderImgixImageProperty_ImgixCrop" type="pagebuilder_imgix_image_width_property">
+        <data key="name">imgix image configurations</data>
+        <data key="section">imgix_image_configuration</data>
+        <data key="fieldName">imgix_crop</data>
+        <data key="value">entropy</data>
+    </entity>
+</entities>

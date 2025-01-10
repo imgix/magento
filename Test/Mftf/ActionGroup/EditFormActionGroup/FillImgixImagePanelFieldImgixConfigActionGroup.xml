@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="FillImgixImagePanelFieldImgixConfigActionGroup">
+        <annotations>
+            <description>Save `imgix width` value to `imgix image configuration` section.</description>
+        </annotations>
+        <arguments>
+            <argument name="imgix_width" type="string" defaultValue="{{PageBuilderImgixImageProperty_ImgixWidth.value}}"/>
+            <argument name="imgix_height" type="string" defaultValue="{{PageBuilderImgixImageProperty_ImgixHeight.value}}"/>
+            <argument name="imgix_format" type="string" defaultValue="{{PageBuilderImgixImageProperty_ImgixFormat.value}}"/>
+            <argument name="imgix_auto" type="string" defaultValue="{{PageBuilderImgixImageProperty_ImgixAuto.value}}"/>
+            <argument name="imgix_crop" type="string" defaultValue="{{PageBuilderImgixImageProperty_ImgixCrop.value}}"/>
+        </arguments>
+        <fillField selector="{{AdminPagebuiderImgixImageSection.imgixWidth}}" userInput="{{imgix_width}}" stepKey="fillImgixWidth"/>
+        <fillField selector="{{AdminPagebuiderImgixImageSection.imgixHeight}}" userInput="{{imgix_height}}" stepKey="fillImgixHeight"/>
+        <fillField selector="{{AdminPagebuiderImgixImageSection.imgixFormat}}" userInput="{{imgix_format}}" stepKey="fillImgixFormat"/>
+        <fillField selector="{{AdminPagebuiderImgixImageSection.imgixAuto}}" userInput="{{imgix_auto}}" stepKey="fillImgixAuto"/>
+        <fillField selector="{{AdminPagebuiderImgixImageSection.imgixCrop}}" userInput="{{imgix_crop}}" stepKey="fillImgixCrop"/>
+    </actionGroup>
+</actionGroups>

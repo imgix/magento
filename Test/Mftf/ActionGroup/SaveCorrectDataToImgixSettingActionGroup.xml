@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="SaveCorrectDataToImgixSettingActionGroup">
+        <annotations>
+            <description>Save correct `imgix API` key value to the system configuration `imgix Settings` section.</description>
+        </annotations>
+        <arguments>
+            <argument name="enabled" type="string" defaultValue="{{AdminEnableImgixModule.value}}"/>
+            <argument name="imgix_api_key" type="string" defaultValue="{{AdminSetImgixAPIKey.value}}"/>
+            <argument name="default_options" type="string" defaultValue="{{AdminSetDefaultImageOptions.value}}"/>
+            <argument name="small_options" type="string" defaultValue="{{AdminAddImgixSmallImageOptions.value}}"/>
+            <argument name="thumbnail_options" type="string" defaultValue="{{AdminAddImgixThumbnailImageOptions.value}}"/>
+        </arguments>
+        <selectOption selector="{{SettingSection.enabled}}" userInput="{{enabled}}" stepKey="selectImgixModuleEnabled"/>
+        <fillField selector="{{SettingSection.imgixApiKey}}" userInput="{{imgix_api_key}}" stepKey="fillImgixApiKey"/>
+        <fillField selector="{{SettingSection.defaultOptions}}" userInput="{{default_options}}" stepKey="fillDefaultOptions"/>
+        <fillField selector="{{SettingSection.smallOptions}}" userInput="{{small_options}}" stepKey="fillSmallOptions"/>
+        <fillField selector="{{SettingSection.thumbnailOptions}}" userInput="{{thumbnail_options}}" stepKey="fillThumbnailOptions"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="PageBuilderCMSPageCreateCMSPageWithImgixImageTest">
+        <annotations>
+            <features value="PageBuilder"/>
+            <stories value="Create a CMS page via page builder with imgix Image element"/>
+            <title value="Create CMS Page with imgix Image"/>
+            <description value="Create CMS Page with imgix Image via pagebuilder"/>
+            <severity value="MAJOR"/>
+            <group value="imgixImage"/>
+        </annotations>
+        <before>
+            <!-- Create CMS page -->
+            <createData entity="_defaultCmsPage" stepKey="createCMSPage"/>
+            <!-- Admin Login -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Open IMGIX system configuration section and save values -->
+            <actionGroup ref="NavigateToDefaultLayoutsImgixSettingActionGroup" stepKey="navigateToImgixConfigurationPage"/>
+            <!-- Save system configuration -->
+            <actionGroup ref="AdminSaveConfigActionGroup" stepKey="saveConfig"/>
+            <!-- Cache flush -->
+            <magentoCLI stepKey="runCacheFlush" command="cache:flush"/>
+        </before>
+        <after>
+            <!-- Reset Imgix Settings and save system configuration -->
+            <actionGroup ref="NavigateToDefaultLayoutsImgixSettingResetActionGroup" stepKey="navigateToImgixConfigurationPageResetSettings"/>
+            <actionGroup ref="AdminSaveConfigActionGroup" stepKey="resetSettingsAndSaveConfig"/>
+            <!-- Admin Logout -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+            <!-- Delete created CMS Page -->
+            <deleteData createDataKey="createCMSPage" stepKey="deleteCmsPage"/>
+        </after>
+        <!-- Open CMS Page on admin-->
+        <actionGroup ref="AdminOpenCmsPageActionGroup" stepKey="openEditPage">
+            <argument name="page_id" value="$$createCMSPage.id$$"/>
+        </actionGroup>
+        <!-- Add the imgix Image to CMS Page -->
+        <actionGroup ref="switchToPageBuilderStage" stepKey="switchToPageBuilderStage"/>
+        <actionGroup ref="dragContentTypeToStage" stepKey="dragRowToRootContainer">
+            <argument name="contentType" value="PageBuilderRowContentType"/>
+            <argument name="containerTargetType" value="PageBuilderRootContainerContentType"/>
+        </actionGroup>
+        <!-- Open imgix image element -->
+        <actionGroup ref="expandPageBuilderPanelMenuSection" stepKey="expandPageBuilderPanelMenuSection">
+            <argument name="contentType" value="PageBuilderImgixCustomimageContentType"/>
+        </actionGroup>
+        <actionGroup ref="DragContentTypeImgixToStage" stepKey="dragImgixCustomimageIntoStage">
+            <argument name="contentType" value="PageBuilderImgixCustomimageContentType"/>
+        </actionGroup>
+        <!-- Open Edit Panel -->
+        <actionGroup ref="openPageBuilderEditPanel" stepKey="openEditMenuOnStage">
+            <argument name="contentType" value="PageBuilderImgixCustomimageContentType"/>
+        </actionGroup>
+        <!-- Fill imgix parameters -->
+        <actionGroup ref="FillImgixImagePanelFieldImgixConfigActionGroup" stepKey="addImgixImageConfigurationSettings"/>
+        <!-- Save Edit Panel -->
+        <actionGroup ref="saveEditPanelSettings" stepKey="saveEditPanelSettings"/>
+        <!-- Exit pagebuilder full screen -->
+        <actionGroup ref="exitPageBuilderFullScreen" stepKey="exitPageBuilderFullScreen"/>
+        <!-- Save CMS Page -->
+        <actionGroup ref="AdminSaveAndContinueEditCmsPageActionGroup" stepKey="saveCmsPageAndContinue"/>
+        <!-- Open CMS Page in frontend -->
+        <actionGroup ref="NavigateToStorefrontForCreatedPageActionGroup" stepKey="navigateToCMSPageStorefront">
+            <argument name="page" value="$$createCMSPage.identifier$$"/>
+        </actionGroup>
+    </test>
+</tests>

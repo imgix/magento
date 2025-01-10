@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="NavigateToDefaultLayoutsImgixSettingResetActionGroup">
+        <annotations>
+            <description>Goes to the 'Configuration' page for 'Imgix'. Reset Values to the 'Settings' section.</description>
+        </annotations>
+        <arguments>
+            <argument name="disabled_imgix" type="string" defaultValue="{{AdminDisableImgixModule.value}}"/>
+            <argument name="reset_imgix_api_key" type="string" defaultValue="{{AdminResetImgixAPIKey.value}}"/>
+        </arguments>
+        <amOnPage url="{{ImgixConfigurationPage.url}}" stepKey="navigateToImgixConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <selectOption selector="{{SettingSection.enabled}}" userInput="{{disabled_imgix}}" stepKey="selectImgixModuleEnabled"/>
+        <fillField selector="{{SettingSection.imgixApiKey}}" userInput="{{reset_imgix_api_key}}" stepKey="fillImgixApiKey"/>
+    </actionGroup>
+</actionGroups>
